@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>玩墨网</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../static/css/mui.min.css" rel="stylesheet"/>
+		<link href="../static/css/iconfont_1.css" rel="stylesheet"/>
+		<link href="../static/css/inklego_1.css" rel="stylesheet" />
+
+		<style>
+			.ink-scroll{top:44px;bottom:50px;position:fixed;overflow-y:hidden;}
+
+			.mui-slider{background:#FFF;}
+			.mui-slider img,#goodsDesc img{display:block;width:100%;}
+			.goods-title{font-size:17px;text-align:center;margin:0;line-height:40px;}
+			.goods-price{color:#D93C37;text-align:center;font-size:14px;}
+			.goods-artiste-header{font-size:14px;padding:15px 15px 5px;}
+			.goods-artiste-thumb {width:75px;height:75px;margin:0px auto;border-radius:75px;border:1px solid #EEE;background:#FF0;overflow:hidden;}
+			.goods-artiste-name  {text-align:center;color:#333;font-size:14px;padding:10px}
+			.goods-artiste-name .nick{line-height:40px;}
+			.goods-artiste-name .desc{padding:5px 10px;}
+			#title,#artiste,#goodsDesc{background:#FFF;}
+			#artiste,#goodsDesc{margin-top:15px;}
+
+			.mui-tab-item a{color:#333;}
+			.cart,.buy{line-height:50px;font-size:14px;}
+			.mui-bar-tab .mui-tab-item.cart{background:#333;color:#FFF;}
+			.mui-bar-tab .mui-tab-item.buy{background:#FFD71D;color:#333;}
+			.dot{position:absolute;top:0;right:0;width:7px;height:7px;border-radius:7px;background:#F00;display:none;}
+
+			.selectGroup{background:#FFF;}
+			.selectGroup h2{background:#EEE;color:#666;font-size:14px;margin:0;padding:10px;}
+			.selectGroup > h2~div,.selectGroup > h2~ul{padding:25px 10px;}
+			.selectGroup .mui-slider-indicator.mui-segmented-control{margin:0;height:75px;}
+			.selectGroup li{display:inline-block;margin-left:15px;}
+			.selectGroup li:first-child{margin-left:0;}
+			.selectGroup li a{font-size:12px;height:25px;line-height:25px;padding:0 7.5px;border:1px solid #CCC;border-radius:15px;display:block;color:#333;}
+			.selectGroup li a.active{background:#FFD71D;border:1px solid #FFD71D;}
+
+			.mui-numbox {border:none!important;background:none;}
+			.mui-numbox .mui-btn-numbox-minus,.mui-numbox .mui-numbox-btn-minus,.mui-numbox .mui-btn-numbox-plus,.mui-numbox .mui-numbox-btn-plus{width:32px;height:32px;border-radius:30px;border:1px solid #CCC;font-size:12px;}
+			.mui-numbox .mui-input-numbox, .mui-numbox .mui-numbox-input{height:30px;line-height:30px;font-size:14px;border:none!important;}
+
+			.action{height:60px;background:#FFD71D}
+			.action .cart-action{width:100%;height:40px;line-height:50px;display:none;color:#333;font-size:14px;}
+			.action .cart-price {width:100%;height:20px;line-height:5px;text-align:center;font-size:12px;}
+
+			.mui-segmented-control.mui-scroll-wrapper.payment-type{height:170px;padding:20px 0;}
+			.payment-type.mui-segmented-control.mui-scroll-wrapper > ul.mui-scroll{height:129px;}
+			.payment-type > ul.mui-scroll > li{display:inline-block;height:129px;line-height:129px;width:240px;background-size:200px 129px;background-position:50%;background-repeat:no-repeat;}
+			.payment-type > ul.mui-scroll > li a{width:100%;height:100%;display:block;}
+			.payment-type > ul.mui-scroll > li.wx{background-image:url(static/images/play_weixin.png);}
+			.payment-type > ul.mui-scroll > li.ali{background-image:url(static/images/play_alipay.png);}
+			.payment-type > ul.mui-scroll > li img{width:200px;display:none;}
+			.payment-type > ul.mui-scroll > li.active img{display:inline-block;}
+			.mui-table-view-cell{padding:0 0 0 15px;}
+			.mui-table-view-cell>a:not(.mui-btn) {margin:0;}
+			.mui-table-view-cell .total{margin:15px 0 0 0;}
+			.mui-table-view-cell .total > div{line-height:30px;height:30px}
+			.mui-table-view-cell .total > p{line-height:25px;height:25px}
+			.mui-table-view-cell a.payment{padding:0;margin:0;width:80px;line-height:80px;background:#D93C37;color:#FFF!important;font-size:16px;}
+			.mui-table-view-cell p.title{margin:10px 0}
+			.mui-table-view-cell .cart-list{padding:0 0 20px 0!important;}
+			.mui-table-view-cell .cart-list ul {height:66px;overflow:hidden;}
+			.mui-table-view-cell .cart-list ul > li{margin-left:10px;display:inline-block;}
+			.mui-table-view-cell .cart-list ul > li:first-child{margin-left:0px;}
+			.mui-table-view-cell .cart-list ul > li img{height:60px;}
+			.mui-table-view-cell .cart-list .nums{height:50px;line-height:50px;width:80px;font-size:14px;color:#999;text-align:right;margin-right:20px;margin-top:5px;}
+			.mui-table-view-cell a,.mui-table-view-cell .nums span{color:#BBB!important;}
+			.mui-table-view-cell .address{padding:0!important;font-size:14px;}
+			.mui-table-view-cell .address > div{margin-top:10px;line-height:30px;color:#333!important;}
+			.mui-table-view-cell .address > p{line-height:20px;margin:0 0 15px;}
+			.mui-table-view-cell input{font-size:12px;border:none;margin-top:-10px;padding:0;}
+
+			.mui-table-view-cell.goods-item{padding:15px 0;padding-left:15px;}
+			.mui-table-view-cell.goods-item  img.pic{width:60px;height:60px;display:block;}
+			.mui-table-view-cell.goods-item .goods-info{font-size:14px;height:20px;margin-top:7.5px;line-height:20px;margin-left:10px}
+			.mui-table-view-cell.goods-item .goods-info.title{color:#333;}
+			.mui-table-view-cell.goods-item .goods-info .text-danger{color:#D93C37!important;display:inline-block;}
+			.mui-table-view-cell.goods-item .size,.mui-table-view-cell.goods-item > a .color{display:inline-block;max-width:75px;border:1px solid #DDD;border-radius:20px;font-size:12px;padding:0 10px;margin-left:5px;}
+			.mui-table-view-cell.goods-item .num{line-height:60px;margin-right:15px;}
+
+			.mui-table-view-cell.address-item{padding:7.5px;}
+			.mui-table-view-cell.address-item div{color:#333!important;}
+			#downloadapp{border-color: #333;font-size: 13px;padding: 3px 5px 2px;top: 10px;line-height:20px;right:60px;position:absolute;}
+		</style>
+	</head>
+	<body>
+		<div class="ink-content">
+			<div id="tabbar-with-detail" class="mui-control-content mui-active">
+				<header class="mui-bar mui-bar-nav ink-bar">
+					<a class="mui-action-back ink-icon iconfont icon-left mui-pull-left"></a>
+					<h1 class="mui-title">商品详情</h1>
+					<a id="downloadapp" class="mui-btn mui-btn-outlined">下载APP</a>
+										<a href="#tabbar-with-login" class="collection ink-icon iconfont icon-like mui-pull-right mui-tab-item" style="font-size:24px;display:block;"></a>
+									</header>
+				<nav class="mui-bar mui-bar-tab ink-bar-tab">
+					<div class="mui-tab-item">
+						<div class="mui-tab-item">
+														<a href='#tabbar-with-login' class="mui-tab-item mui-icon iconfont icon-cart" style="display:inline-block;color:#333;margin-top:-6px;"></a>
+													</div>
+						<div class="mui-tab-item">
+							<a href='http://www.inklego.com/mb/member/msg' class="webAction">
+								<span class="mui-icon iconfont icon-service"></span>
+							</a>
+						</div>
+					</div>
+										<a href="#tabbar-with-login" class="mui-tab-item cart">加入购物车</a>
+					<a href="#tabbar-with-login" class="mui-tab-item buy">立即购买</a>
+									</nav>
+				<div class="ink-scroll mui-slider-item mui-control-content mui-active">
+					<div class="mui-scroll">
+						<div id="slider" class="mui-slider" >
+							<img src="static/picture/place_holder_square.png" width=100% />
+							<script id="sliderTpl" type="text/html" >
+								<div class="mui-slider-group mui-slider-loop">
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										<img src="static/picture/1de5b525a57a4199b6df82744eee23c7.gif" />
+									</div>
+									{{each banner as bItem i}}
+									<div class="mui-slider-item">
+										<img src="static/picture/4e35b649eba34140b9a41f1664148fa4.gif" />
+									</div>
+									{{/each}}
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										<img src="static/picture/f5a10f1417f94674847d6171e6f03cab.gif" />
+									</div>
+								</div>
+								{{if last > 0}}
+								<div class="mui-slider-indicator">
+									{{each banner as bItem i}}
+									<div class="mui-indicator {{if i==0}}mui-active{{/if}}"></div>
+									{{/each}}
+								</div>
+								{{/if}}
+							</script>
+						</div>
+						<div id="title"></div>
+						<div id="artiste"></div>
+						<div id="goodsDesc"></div>
+					</div>
+				</div>
+			</div>
+						<div id="tabbar-with-login" class="mui-control-content">
+				<header class="mui-bar mui-bar-nav ink-bar ink-bar-login-reg">
+					<a class="ink-icon iconfont icon-left mui-pull-left mui-tab-item" href="#tabbar-with-detail"></a>
+					<a class="mui-pull-right ink-login-reg mui-tab-item" href="#tabbar-with-register">
+						<strong>登录</strong>
+						<span>注册</span>
+					</a>
+				</header>
+				<div class="mui-card" style="margin-top: 200px;">
+					<div id="login" class="mui-card-content">
+						<form class="mui-input-group">
+							<div class="mui-input-row">
+								<label><span class="mui-icon mui-icon-email"></span></label>
+								<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入邮箱" />
+							</div>
+							<div class="mui-input-row mui-password">
+								<label><span class="mui-icon mui-icon-locked"></span></label>
+								<input id='password' type="password" class="mui-input-password" placeholder="请输入密码" />
+							</div>
+							<div class="mui-input-row" id="showCode" style="display:none;">
+								<label><span class="mui-icon mui-icon-camera"></span></label>
+								<input id='code' type="text" class="mui-input" placeholder="请输入验证码" style="width:45%;float:left;" />
+								<img src="" id="codeImg" style="margin-top:5px;float:right;"/>
+							</div>
+						</form>
+					</div>
+				</div>
+				<a class="mui-btn mui-btn-ink mui-btn-block" onclick="login();" >登录</a>
+				<hr/>
+				<ul class="third-login">
+					<li class="mui-pull-left mui-text-right">
+						<a href="http://www.inklego.com/fastlogin/alipay" class="webAction">
+							<span class="ink-icon iconfont icon-alipay text-secondary"></span>
+						</a>
+					</li>
+					<li class="mui-pull-left mui-text-center">
+						<a href="http://www.inklego.com/fastlogin/sinaweibo" class="webAction">
+							<span class="ink-icon iconfont icon-weibo text-danger"></span>
+						</a>
+					</li>
+					<li class="mui-pull-left mui-text-left">
+						<a href="http://www.inklego.com/fastlogin/qq" class="webAction">
+							<span class="ink-icon iconfont icon-qq text-primary"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div id="tabbar-with-register" class="mui-control-content">
+				<header class="mui-bar mui-bar-nav ink-bar-login-reg">
+					<a class="ink-icon iconfont icon-left mui-pull-left mui-tab-item" href="#tabbar-with-detail"></a>
+					<a class="mui-pull-right ink-login-reg mui-tab-item" href="#tabbar-with-login">
+						<span>登录</span>
+						<strong>注册</strong>
+					</a>
+				</header>
+				<div class="mui-card" style="margin-top: 340px;">
+					<div id="register" class="mui-card-content">
+						<form class="mui-input-group">
+							<div class="mui-input-row">
+								<label><span class="mui-icon mui-icon-email"></span></label>
+								<input id='reg_email' type="email" class="mui-input-clear mui-input" placeholder="请输入邮箱" />
+							</div>
+							<div class="mui-input-row">
+								<label><span class="ink-icon iconfont icon-puzzle"></span></label>
+								<input id='reg_nick' type="text" class="mui-input-clear mui-input" placeholder="请输入昵称" />
+							</div>
+							<div class="mui-input-row mui-password">
+								<label><span class="mui-icon mui-icon-locked"></span></label>
+								<input id='reg_pswd' type="password" class="mui-input-password" placeholder="请输入密码" />
+							</div>
+						</form>
+					</div>
+				</div>
+				<a class="mui-btn mui-btn-ink mui-btn-block" onclick="register();" >注册</a>
+			</div>
+
+		</div>
+				<div id="fixed" class="mui-hidden"></div>
+	</body>
+</html>
+<script id="titleTpl" type="text/html">
+<h1 class="goods-title short-nick">{{title}}</h1>
+{{if templeteDesc}}
+<p class="mui-text-center short-nick">{{templeteDesc}}</p>
+{{/if}}
+<div class="goods-price text-danger">RMB {{if max > min}}{{min.toFixed(2)}} ~ {{max.toFixed(2)}}{{else}}{{min.toFixed(2)}}{{/if}}</div>
+</script>
+<script id='artisteTpl' type="text/html">
+<div class="goods-artiste-header">设计师</div>
+	<a href='http://www.inklego.com/mb/artiste/home/{{id}}' class="webAction">
+		<div class="goods-artiste-thumb">
+			<img src='static/picture/90331e71964242cfa2f337bbc2cd3491.gif' width=100% />
+		</div>
+		<div class='goods-artiste-name'>
+			<div class="nick short-nick">{{nick}}</div>
+			<p class='desc short-nick'><small>{{description}}</small></p>
+		</div>
+	</a>
+</script>
+<script id='goodsDescTpl' type="text/html">
+{{each details as dItem}}
+<img src='static/picture/6e45fbd7d3b34131a7f8577d318a712f.gif' width=100% />
+{{/each}}
+</script>
+<script src="static/js/mui.js"></script>
+<script src="static/js/template.js"></script>
+<script type="text/javascript">
+	var header = 0;
+	var colorArr,sizeArr;
+	var colorPrice,sizePrice,catePrice,dtPrice,dtid,deliverFee;
+	var color,size,orderAddress;
+	var qty = 1;
+	var deliverFee = 0;
+	var empty = 0;
+
+	mui.init();
+	(function($){
+		$('body').on('tap','a.webAction',function(){
+			url = this.href;
+			var timestamp = Date.parse(new Date())/1000;
+			urlArr  = url.split('?ver=');
+			if (url && url.indexOf('#')<0){
+				url = urlArr[0]+"?ver="+timestamp;
+				mui.openWindow({id:url,url:url});
+			}
+		});
+		$('body').on('tap','a#downloadapp',function(){
+			if(mui.os.android){
+				url = 'https://a.app.qq.com/o/simple.jsp?pkgname=com.store.inklego';
+			}
+			else {
+				url = 'https://itunes.apple.com/cn/app/id1261685168?mt=8';
+			}
+			mui.openWindow({id:url,url:url});
+		});
+				$('.ink-scroll').scroll({
+			bounce: true,
+			indicators: false,
+			deceleration:0.0009,
+		});
+		$('nav').on('tap','a',function(){
+			id = this.id;
+			if(id=='addCart'){
+				document.querySelector('#cartAction').style.display='block';
+				document.querySelector('#buyAction').style.display='none';
+			}
+			else if(id=='buyNow'){
+				document.querySelector('#cartAction').style.display='none';
+				document.querySelector('#buyAction').style.display='block';
+			}
+			else {
+				this.classList.remove("mui-active");
+			}
+		});
+				getGoodsDetail();
+	})(mui);
+		function getGoodsDetail(){
+		dtid     = '1157';
+		var url    = 'http://www.inklego.com/api/v2/product/deal';
+		mui.post(url,{id:dtid},function(result){
+			empty = parseInt(result.result.empty);
+			if(empty) document.querySelector('#buyAction').href='';
+						document.querySelector('h1.mui-title').innerHTML = result.result.cate.title;
+			var param ={
+				'last'   : result.result.banner.length-1,
+				'banner' : result.result.banner,
+			};
+			BannerTpl = template('sliderTpl',param);
+			document.querySelector('#slider').innerHTML = BannerTpl;
+			var slider = mui("#slider");
+			if (param.last > 0) slider.slider({interval: 2000});
+			var colorMax = maxPrice(result.result.color);
+			var sizeMax  = maxPrice(result.result.size);
+			result.result.max = parseFloat(result.result.cate.price)+parseFloat(result.result.price)+parseFloat(colorMax)+parseFloat(sizeMax);
+			result.result.min = parseFloat(result.result.cate.price)+parseFloat(result.result.price);
+			titleTpl     = template('titleTpl',result.result);
+			artisteTpl   = template('artisteTpl',result.result.designer);
+			goodsDescTpl = template('goodsDescTpl',result.result);
+			document.querySelector('#title').innerHTML       = titleTpl;
+			document.querySelector('#artiste').innerHTML     = artisteTpl;
+			document.querySelector('#goodsDesc').innerHTML   = goodsDescTpl;
+					});
+	}
+	function cartInit(obj){
+		cartTpl      = template('cartTpl',obj);
+		document.querySelector('#selectParam').innerHTML = cartTpl;
+		mui('#selectSize').scroll();
+		mui('#selectColor').scroll();
+﻿		colorArr   = obj.color.content;
+		sizeArr    = obj.size.content;
+		color      = obj.color.content[0].val;
+		size       = obj.size.content[0].val;
+		catePrice  = parseFloat(obj.cate.price);
+		dtPrice    = parseFloat(obj.price);
+		colorPrice = parseFloat(obj.color.content[0].price);
+		sizePrice  = parseFloat(obj.size.content[0].price);
+		var price  = (catePrice+dtPrice+colorPrice+sizePrice)*qty;
+		document.querySelector('#cartPrice').innerHTML = "&yen; "+price.toFixed(2);
+﻿		if (obj.cate.param==1) {
+			mui.post("http://www.inklego.com/api/v2/product/getMobilePhoneParam",{},function(mobileData){
+				paramPicker.setData(mobileData.result);
+				mui('#cart').on('tap','a.select-item',function(){
+					document.querySelector('#cart').style.display='none';
+					paramPicker.show(function(items) {
+						document.querySelector('#sizeParam').innerText=items[1].title;
+						document.querySelector('#colorParam').innerText=items[2].title;
+						size       = items[1].title;
+						color      = items[2].title;
+						sizePrice  = parseFloat(items[1].addprice);
+						colorPrice = parseFloat(items[2].addprice);
+						var price      = (catePrice+dtPrice+colorPrice+sizePrice)*qty;
+						document.querySelector('#cartPrice').innerHTML = "<span>&yen; "+price.toFixed(2)+"</span>";
+					});
+				});
+			});
+		}
+		else {
+			mui('#cart').on('tap','a.select-item',function(){
+				selectParam(this);
+			});
+		}
+	}
+	function maxPrice(obj){
+		var arr = new Array();
+		mui.each(obj,function(i,item){
+			arr.push(item.addPrice);
+		});
+		arr.sort(sortNumber);
+		return arr[0];
+	}
+	function sortNumber(a,b) {
+		return b - a
+	}
+		var loginUrl    = "http://www.inklego.com/api/v1/user/login";
+	var regUrl      = "http://www.inklego.com/api/v1/user/register";
+	function login(){
+		var account  = document.querySelector('#account').value;
+		var password = document.querySelector('#password').value;
+		var code     = document.querySelector('#code').value;
+		if (account.length <= 0) {mui.toast('账户名必须输入'); return false;}
+		if (password.length <= 0) {mui.toast('密码必须输入'); return false;}
+		mui.post(loginUrl,{username:account,password:password,code:code},function(result){
+			if (result.result) window.location.reload();
+			else if(result.error==401) {showCode();}
+			else if(document.querySelector('#showCode').style.display=='block') {mui.toast(result.errorMessage);showCode();}
+			else {mui.toast(result.errorMessage);}
+		});
+	}
+	function register(){
+		var email  = document.querySelector('#reg_email').value;
+		var nick   = document.querySelector('#reg_nick').value;
+		var pswd   = document.querySelector('#reg_pswd').value;
+		if (email.length <= 0) {mui.toast('邮箱地址必须输入'); return false;}
+		if (nick.length <= 0) {mui.toast('昵称必须输入'); return false;}
+		if (pswd.length <= 0) {mui.toast('密码必须输入'); return false;}
+		if(! isEmail(email) ) {mui.toast('邮箱格式错误'); return false;}
+		if (pswd.length <= 5 || pswd.length >=13) {mui.toast('密码必须6~12位'); return false;}
+		mui.post(regUrl,{username:email,nickname:nick,password:pswd},function(result){
+			if(result.result){
+				document.querySelector('#account').value  = email;
+				document.querySelector('#password').value = pswd;
+				mui.toast('欢迎您，'+nick);
+				setTimeout(function(){login();},1500);
+			}
+			else {
+				mui.toast(result.errorMessage);
+			}
+		});
+	}
+	function isEmail(strEmail) {
+		if (strEmail.search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/) != -1) return true;
+		else return false;
+	}
+	function showCode(){
+		var codeUrl = "http://www.inklego.com/api/v1/common/code";
+		mui.post(codeUrl,{},function(result){
+			img     = document.querySelector('#codeImg');
+			img.src = "data:image/jpg;base64,"+result.result;
+			document.querySelector('#showCode').style.display="block";
+		});
+	}
+	</script>

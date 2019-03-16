@@ -1,0 +1,74 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>玩墨网</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="static/css/mui.min.css" rel="stylesheet"/>
+		<link href="static/css/iconfont.css" rel="stylesheet"/>
+		<link href="static/css/mui.picker.min.css" rel="stylesheet" type="text/css" />
+		<link href="static/css/inklego_2.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="ink-content">
+			<div id="tabbar-with-info" class="mui-control-content mui-active">
+				<nav class="mui-bar mui-bar-tab ink-bar-tab">
+					<a class="mui-tab-item webAction" href='http://www.inklego.com/mb'>
+							<svg class="icon" aria-hidden="true">
+								<use xlink:href="#icon-store"></use>
+							</svg>
+					</a>
+					<a class="mui-tab-item webAction" href='http://www.inklego.com/mb/presale/prelist'>
+							<svg class="icon" aria-hidden="true">
+								<use xlink:href="#icon-presale"></use>
+							</svg>
+					</a>
+					<a class="mui-tab-item webAction" href='http://www.inklego.com/mb/artiste/artlist'>
+							<svg class="icon" aria-hidden="true">
+								<use xlink:href="#icon-artiste"></use>
+							</svg>
+					</a>
+					<a class="mui-tab-item">
+							<svg class="icon" aria-hidden="true">
+								<use xlink:href="#icon-msg2"></use>
+							</svg>
+					</a>
+					<a class="mui-tab-item webAction" href='http://www.inklego.com/mb/member'>
+							<svg class="icon" aria-hidden="true">
+								<use xlink:href="#icon-my"></use>
+							</svg>
+					</a>
+				</nav>
+				<header class="mui-bar mui-bar-nav ink-bar-header" style="z-index:1000;">
+					<h1 class="mui-title">客服</h1>
+					<p class="ink-sub-title">SERVICE</p>
+				</header>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="static/js/mui.min.js"></script>
+<script src="static/js/iconfont.js"></script>
+<!--script src="/javascript/mobile/config.js"></script-->
+<script>
+var aniShow = "zoom-fade-out";
+mui.init({
+	subpages:[{
+		url:"http://www.inklego.com/mb/member/mechart",//子页面HTML地址，支持本地地址和网络地址
+		id:"mechart.html",//子页面标志
+		styles:{
+			top:'0px',//子页面顶部位置
+			bottom:'20px',//子页面底部位置
+		},
+	}]
+});
+mui('body').on('tap','a,webAction',function(){
+	url = this.href;
+	var timestamp = Date.parse(new Date())/1000;
+	urlArr  = url.split('?ver=');
+	if (url && url.indexOf('#')<0){
+		url = urlArr[0]+"?ver="+timestamp;
+		mui.openWindow({id:url,url:url});
+	}
+});
+</script>

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>玩墨网</title>
+<link href="/style/mobile/css/mui.min.css" rel="stylesheet"/>
+<link href="/style/mobile/css/iconfont.css" rel="stylesheet"/>
+<link href="/style/mobile/css/inklego.css?ver=152006972966" rel="stylesheet" />
+<style>
+			#ink-nav{top:55px;position:fixed;padding:0;height:40px;background:#fff;border:none;z-index:10;}
+			#ink-nav .mui-scroll{border-bottom:2px solid #FFD71D;}
+			#ink-nav a{color:#333;font-size:14px;border-bottom:2px solid transparent;}
+			#ink-nav a.mui-active{border-bottom:2px solid #333;font-weight:600;background:#FFF;}
+			.dot{position:absolute;top:12px;right:12px;width:7px;height:7px;border-radius:7px;background:#F00;display:none;}
+			
+			#selectStore{border:none;height:200px;}
+			
+			.ink-scroll{position:fixed;top:95px;bottom:50px;padding:0;margin:0;overflow:hidden;}
+			
+			.select-store{margin-top:20px;}
+			.mui-segmented-control .mui-control-item.mui-active{background:#FFF;}
+			.select-store .mui-control-item{width:120px;height:200px;line-height:22px;}
+			.select-store .thumb{width:80px;height:80px;border-radius:80px;margin:0 auto;border:1px solid #EFEFEF;overflow:hidden;display:block;}
+			.select-store .nick{width:80px;margin:5px auto;margin-top:10px;font-size:14px;font-weight:500;}
+			.select-store .nick .dsc{font-weight:400;color:#999;height:21px}
+			.select-store a.follow{width:30px;height:30px;margin:0 auto;display:block;color:#333;text-align:center;}
+			.select-store a.unfollow{background:#FFD71D;}
+			.select-store a.followed{background:#EEEEEE;}
+			.select-store a.follow > .ink-icon{font-size:20px;line-height:30px;font-weight:800;}
+			.ink-body .header > img {width:100%;display:block;}
+			
+			.ink-lg-goods .ink-title{padding:25px 0 5px;font-weight:600;display:block;}
+			
+			.ink-xs-goods .ink-title{padding:15px;font-weight:600;font-size:14px;display:block;height:70px;}
+			.ink-xs-goods .ink-title .ink-icon,.ink-xs-goods .ink-title p{font-weight:400;color:#888;}
+			.ink-xs-goods .ink-title .ink-icon{margin-top:10px;}
+			.ink-xs-goods.ink-view{margin-top:0;margin-bottom:20px;}
+			.ink-xs-goods.ink-view:last-child{margin-bottom:0;}
+			.ink-xs-goods ul{padding-bottom:10px;}
+			.ink-xs-goods ul > li{width:33.3%;padding:10px;}
+			.ink-xs-goods ul > li img{width:100%;}
+			
+			.ink-view a{color:#333;display:inline-block;}
+			.ink-view.ink-sm-goods .mui-segmented-control{border:none;height:220px;}
+			.ink-view.ink-lg-goods .mui-segmented-control{border:none;height:320px;}
+			
+			.ink-sm-goods .mui-control-item > .goods-item{width:150px;padding:5px 10px;line-height:22px;}
+			.ink-lg-goods .mui-control-item > .goods-item{width:250px;padding:15px;line-height:22px;}
+			.ink-sm-goods .mui-segmented-control.mui-scroll-wrapper .mui-control-item,
+			.ink-lg-goods .mui-segmented-control.mui-scroll-wrapper .mui-control-item {padding:0;}
+			
+		</style>
+</head>
+<body>
+<div class="ink-content">
+<div id="tabbar-with-info" class="mui-control-content mui-active">
+<header class="mui-bar mui-bar-nav ink-bar-header">
+<a class="mui-icon ink-icon iconfont icon-search mui-pull-left webAction" href="http://www.inklego.com/mb/search"></a>
+<a class="mui-icon ink-icon iconfont icon-cart mui-pull-right mui-tab-item" href='#tabbar-with-login'><div class="dot"></div></a>
+<h1 class="mui-title">商店</h1>
+<p class="ink-sub-title">STORE</p>
+</header>
+<nav class="mui-bar mui-bar-tab ink-bar-tab">
+<a class="mui-tab-item" href="#">
+<svg class="icon" aria-hidden="true">
+<use xlink:href="#icon-store2"></use>
+</svg>
+</a>
+<a class="mui-tab-item webAction" href="http://www.inklego.com/mb/presale/prelist">
+<svg class="icon" aria-hidden="true">
+<use xlink:href="#icon-presale"></use>
+</svg>
+</a>
+<a class="mui-tab-item webAction" href="http://www.inklego.com/mb/artiste/artlist">
+<svg class="icon" aria-hidden="true">
+<use xlink:href="#icon-artiste"></use>
+</svg>
+</a>
+<a class="mui-tab-item webAction" href='http://www.inklego.com/mb/member/msg'>
+<svg class="icon" aria-hidden="true">
+<use xlink:href="#icon-msg"></use>
+</svg>
+</a>
+<a class="mui-tab-item webAction" href='http://www.inklego.com/mb/member'>
+<svg class="icon" aria-hidden="true">
+<use xlink:href="#icon-my"></use>
+</svg>
+</a>
+</nav>
+<div id="ink-nav" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control ink-nav">
+<div id="nav" class="mui-scroll">
+<a>&nbsp;</a>
+<script id="navTpl" type="text/html">
+							<a href="#tabbar-with-info" class="mui-control-item ajaxAction mui-active" id="nav-info">精选</a>
+							{{each cate as cItem i}}
+							<a href="#tabbar-with-cate{{cItem.id}}" class="mui-control-item ajaxAction" id="nav-{{cItem.id}}">{{cItem.title}}</a>
+							{{/each}}
+						</script>
+</div>
+</div>
+<div id="ink-body" class="ink-body ink-scroll">
+<div id="homeBody" class="mui-scroll">
+<div id="slider" class="mui-slider">
+<img src="/images/mobile/banner_default_img.png" />
+<script id="sliderTpl" type="text/html">
+								<div class="mui-slider-group mui-slider-loop">
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										{{if banner[last].Type=='goods'}}
+										<a href='http://www.inklego.com/mb/goods/detail/{{banner[last].id}}' class="webAction">
+										{{else if banner[last].Type=='artiste'}}
+										<a href='http://www.inklego.com/mb/artiste/home/{{banner[last].id}}' class="webAction">
+										{{else if banner[last].Type=='presale'}}
+										<a href='http://www.inklego.com/mb/presale/detail/{{banner[last].id}}' class="webAction">
+										{{else if banner[last].Type=='cate'}}
+										<a href='http://www.inklego.com/mb/goods/cate/{{banner[last].id}}' class="webAction">
+										{{else if banner[last].Type=='href'}}
+										<a href='{{banner[last].id}}' class="webAction">
+										{{else}}
+										<a href="javascript:;">
+										{{/if}}
+											<img src="{{banner[last].image}}" />
+										</a>
+									</div>
+									{{each banner as bItem i}}
+									<div class="mui-slider-item">
+										{{if bItem.Type=='goods'}}
+										<a href='http://www.inklego.com/mb/goods/detail/{{bItem.id}}' class="webAction">
+										{{else if bItem.Type=='artiste'}}
+										<a href='http://www.inklego.com/mb/artiste/home/{{bItem.id}}' class="webAction">
+										{{else if bItem.Type=='presale'}}
+										<a href='http://www.inklego.com/mb/presale/detail/{{bItme.id}}'class="webAction">
+										{{else if bItem.Type=='cate'}}
+										 <a href='http://www.inklego.com/mb/goods/cate/{{bItem.id}}' class="webAction">
+										{{else if bItem.Type=='href'}}
+										<a href='{{bItem.id}}' class="webAction">
+										{{else}}
+										<a href="javascript:;">
+										{{/if}}
+
+											<img src="{{bItem.image}}" />
+										</a>
+									</div>
+									{{/each}}
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										{{if banner[0].Type=='goods'}}
+										<a href='http://www.inklego.com/mb/goods/detail/{{banner[0].id}}' class="webAction">
+										{{else if banner[0].Type=='artiste'}}
+										<a href='http://www.inklego.com/mb/artiste/home/{{banner[0].id}}' class="webAction">
+										{{else if banner[0].Type=='presale'}}
+										<a href='http://www.inklego.com/mb/presale/detail/{{banner[0].id}}' class="webAction">
+										{{else if banner[0].Type=='cate'}}
+										<a href='http://www.inklego.com/mb/goods/categoods/{{banner[0].id}}' class="webAction">
+										{{else if banner[0].Type=='href'}}
+										<a href='{{banner[0].id}}' class="webAction">
+										{{else}}
+										<a href="javascript:;">
+										{{/if}}
+											<img src="{{banner[0].image}}" />
+										</a>
+									</div>
+								</div>
+								<div class="mui-slider-indicator">
+									{{each banner as bItem i}}
+									<div class="mui-indicator {{if i==0}}mui-active{{/if}}"></div>
+									{{/each}}
+								</div>
+							</script>
+</div>
+<div id="selected-store">
+<div class="ink-title">
+<h1 class="mui-title">精选设计商店</h1>
+<p class="ink-sub-title">SELECTED STORE</p>
+</div>
+<div id="selectStore" class="select-store mui-scroll-wrapper mui-slider-indicator mui-segmented-control">
+<div id="selectStoreTpl" class="mui-scroll">
+<script id="sortTpl" type="text/html">
+										{{each designer as sortItem i}}
+										<div class="mui-control-item">
+											<a class="thumb webAction" href='http://www.inklego.com/mb/artiste/home/{{sortItem.id}}'>
+												<img src="{{sortItem.thumb}}" />
+											</a>
+											<a class="sortNick webAction" href='http://www.inklego.com/mb/artiste/home/{{sortItem.id}}'>
+											<div class="nick short-nick mui-text-center">
+												{{sortItem.nick}}
+												<p class="short-nick dsc">{{sortItem.description}}</p>
+											</div>
+											</a>
+											<a class="follow {{if sortItem.follow}}followed{{else}}unfollow{{/if}} mui-tab-item" href="#tabbar-with-login" id="{{sortItem.id}}">
+												<span class="ink-icon iconfont {{if sortItem.follow}}icon-checked{{else}}icon-plus{{/if}}"></span>
+											</a>
+										</div>
+										{{/each}}
+									</script>
+</div>
+</div>
+</div>
+<div class='mui-table-view ink-view ink-sm-goods'>
+<img src="/images/mobile/hot.jpg" width=100% />
+<div class='mui-scroll-wrapper mui-slider-indicator mui-segmented-control'>
+<div id='hotGoods' class="mui-scroll">
+<script id="hotTpl" type="text/html">
+										{{each list as hotItem i}}
+										<div class="mui-control-item">
+											<a href='http://www.inklego.com/mb/goods/detail/{{hotItem.id}}' class='goods-item webAction'>
+												<div class="goods-img"><img src="{{hotItem.picture}}"  width = "100%"/></div>
+												<div class="goods-title short-nick mui-text-center">{{if hotItem.title}}{{hotItem.title}}{{else}}&nbsp;{{/if}}</div>
+												<div class="goods-price mui-text-center">&yen; {{hotItem.price}}</div>
+											</a>
+										</div>
+										{{/each}}
+									</script>
+<div>
+</div>
+</div>
+</div>
+</div>
+<div class="mui-table-view ink-view ink-sm-goods">
+<img src="/images/mobile/new.jpg" width=100% />
+<div class='mui-scroll-wrapper mui-slider-indicator mui-segmented-control'>
+<div id='newGoods' class="mui-scroll">
+<script id="newTpl" type="text/html">
+									{{each list as newItem i}}
+									<div class="mui-control-item">
+										<a href='http://www.inklego.com/mb/goods/detail/{{newItem.id}}' class="goods-item webAction">
+											<div class="goods-img"><img src="{{newItem.picture}}" width = "100%"/></div>
+											<div class="goods-title short-nick mui-text-center">{{if newItem.title}}{{newItem.title}}{{else}}&nbsp;{{/if}}</div>
+											<div class="goods-price mui-text-center">&yen; {{newItem.price}}</div>
+										</a>
+									</div>
+									{{/each}}
+									</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabbar-with-login" class="mui-control-content">
+<header class="mui-bar mui-bar-nav ink-bar ink-bar-login-reg">
+<a class="ink-icon iconfont icon-left mui-pull-left mui-tab-item" href="#tabbar-with-info"></a>
+<a class="mui-pull-right ink-login-reg mui-tab-item" href="#tabbar-with-register">
+<strong>登录</strong>
+<span>注册</span>
+</a>
+</header>
+<div class="mui-card" style="margin-top: 200px;">
+<div id="login" class="mui-card-content">
+<form class="mui-input-group">
+<div class="mui-input-row">
+<label><span class="mui-icon mui-icon-email"></span></label>
+<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入邮箱" />
+</div>
+<div class="mui-input-row mui-password">
+<label><span class="mui-icon mui-icon-locked"></span></label>
+<input id='password' type="password" class="mui-input-password" placeholder="请输入密码" />
+</div>
+<div class="mui-input-row" id="showCode" style="display:none;">
+<label><span class="mui-icon mui-icon-camera"></span></label>
+<input id='code' type="text" class="mui-input" placeholder="请输入验证码" style="width:45%;float:left;" />
+<img src="" id="codeImg" style="margin-top:5px;float:right;"/>
+</div>
+</form>
+</div>
+</div>
+<a class="mui-btn mui-btn-ink mui-btn-block" onclick="login();">登录</a>
+<hr/>
+<ul class="third-login">
+<li class="mui-pull-left mui-text-right">
+<a href="http://www.inklego.com/fastlogin/alipay" class="webAction">
+<span class="ink-icon iconfont icon-alipay text-secondary"></span>
+</a>
+</li>
+<li class="mui-pull-left mui-text-center">
+<a href="http://www.inklego.com/fastlogin/sinaweibo" class="webAction">
+<span class="ink-icon iconfont icon-weibo text-danger"></span>
+</a>
+</li>
+<li class="mui-pull-left mui-text-left">
+<a href="http://www.inklego.com/fastlogin/qq" class="webAction">
+<span class="ink-icon iconfont icon-qq text-primary"></span>
+</a>
+</li>
+</ul>
+</div>
+<div id="tabbar-with-register" class="mui-control-content">
+<header class="mui-bar mui-bar-nav ink-bar-login-reg">
+<a class="ink-icon iconfont icon-left mui-pull-left mui-tab-item" href="#tabbar-with-info"></a>
+<a class="mui-pull-right ink-login-reg mui-tab-item" href="#tabbar-with-login">
+<span>登录</span>
+<strong>注册</strong>
+</a>
+</header>
+<div class="mui-card" style="margin-top: 340px;">
+<div id="register" class="mui-card-content">
+<form class="mui-input-group">
+<div class="mui-input-row">
+<label><span class="mui-icon mui-icon-email"></span></label>
+<input id='reg_email' type="email" class="mui-input-clear mui-input" placeholder="请输入邮箱" />
+</div>
+<div class="mui-input-row">
+<label><span class="ink-icon iconfont icon-puzzle"></span></label>
+<input id='reg_nick' type="text" class="mui-input-clear mui-input" placeholder="请输入昵称" />
+</div>
+<div class="mui-input-row mui-password">
+<label><span class="mui-icon mui-icon-locked"></span></label>
+<input id='reg_pswd' type="password" class="mui-input-password" placeholder="请输入密码" />
+</div>
+</form>
+</div>
+</div>
+<a class="mui-btn mui-btn-ink mui-btn-block" onclick="register();">注册</a>
+</div>
+</div>
+</body>
+</html>
+<script id="cateTpl" type="text/html">
+	<a href="#tabbar-with-cate{{id}}" class="mui-text-center ink-title mui-control-item ajaxAction" id="nav-{{id}}">{{title}}&nbsp;<span class="ink-icon iconfont icon-play-fill"></span></a>
+	<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control cate-scroll-{{id}}">
+		<div id="CateGoods" class="mui-scroll">
+		</div>
+	</div>
+</script>
+<script id="cateGTpl" type="text/html">
+	{{each list as item}}
+	<div class="mui-control-item">
+		<a href='http://www.inklego.com/mb/goods/detail/{{item.id}}' class="goods-item webAction">
+			<div class="goods-img"><img src="{{item.picture}}"  width = "100%"/></div>
+			<div class="goods-title short-nick mui-text-center">{{item.title}}</div>
+			<div class="goods-price mui-text-center">&yen; {{item.price.toFixed(2)}}</div>
+		</a>
+	</div>
+	{{/each}}
+</script>
+<script id="cateHTpl" type="text/html">
+	<header class="mui-bar mui-bar-nav ink-bar-header">
+		<a class="mui-icon ink-icon iconfont icon-search mui-pull-left" href=""></a>
+		<a class="mui-icon ink-icon iconfont icon-cart mui-pull-right"  href=""></a>
+		<h1 class="mui-title">商店</h1>
+		<p class="ink-sub-title">STORE</p>
+	</header>
+	<nav class="mui-bar mui-bar-tab ink-bar-tab">
+		<a class="mui-tab-item" href="#">
+			<svg class="icon" aria-hidden="true">
+				<use xlink:href="#icon-store2"></use>
+			</svg>
+		</a>
+		<a class="mui-tab-item webAction" href='http://www.inklego.com/mb/presale/prelist'>
+			<svg class="icon" aria-hidden="true">
+				<use xlink:href="#icon-presale"></use>
+			</svg>
+		</a>
+		<a class="mui-tab-item webAction" href='http://www.inklego.com/mb/artiste/artlist'>
+			<svg class="icon" aria-hidden="true">
+				<use xlink:href="#icon-artiste"></use>
+			</svg>
+		</a>
+		<a class="mui-tab-item webAction" href='http://www.inklego.com/mb/msg'>
+			<svg class="icon" aria-hidden="true">
+				<use xlink:href="#icon-msg"></use>
+			</svg>
+		</a>
+		<a class="mui-tab-item webAction" href='http://www.inklego.com/mb/member'>
+			<svg class="icon" aria-hidden="true">
+				<use xlink:href="#icon-my"></use>
+			</svg>
+		</a>
+	</nav>
+	<div id="ink-nav" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control ink-nav">
+		<div id="nav" class="mui-scroll">
+			<a href="#tabbar-with-info" class="mui-control-item ajaxAction" id="nav-info">精选</a>
+			{{each cate as cItem i}}
+			<a href="#tabbar-with-cate{{cItem.id}}" class="mui-control-item ajaxAction" id="nav-{{cItem.id}}">{{cItem.title}}</a>
+			{{/each}}
+		</div>
+	</div>
+	<div id="ink-body" class="ink-body ink-scroll">
+		<div class="mui-scroll">
+			<div class="header">
+				<img class="header" src="/images/mobile/banner_default_img.png"/>
+			</div>
+		</div>
+	</div>
+</script>
+<script id="cateBTpl" type="text/html">
+	<div class="header">
+		<img src="{{banner}}"/>
+	</div>
+	{{each cateList as cateItem}}
+	<div class='mui-table-view ink-view ink-xs-goods'>
+		<a href='http://www.inklego.com/mb/goods/cate/{{cateItem.id}}' class="ink-title mui-control-item webAction" id="nav-1">
+			{{cateItem.title}} / {{cateItem.etitle}}<span class="ink-icon iconfont icon-arrow-right mui-pull-right"></span>
+			<p><small>{{cateItem.count}}款设计</small></p>
+		</a>
+		<ul>
+			{{each cateItem.product as cateGoodsItem}}
+			<li class="mui-pull-left">
+				<a href='http://www.inklego.com/mb/goods/detail/{{cateGoodsItem.id}}' class="webAction">
+					<img src="{{cateGoodsItem.picture}}"/>
+				</a>
+			</li>
+			{{/each}}
+		</ul>
+	</div>
+	{{/each}}
+</script>
+<script src="/javascript/mobile/mui.min.js"></script>
+<script src="/javascript/mobile/template.js"></script>
+<script src="/javascript/mobile/iconfont.js"></script>
+<script type="text/javascript" charset="utf-8">
+	mui.init();
+	var ajax   = "http://www.inklego.com/api/v1/recommend/all";
+	var aniShow = "pop-in";
+	var CateMax = 0;
+	mui.post(ajax,{},function(result){
+		CateMax = result.result.cate.length;
+		updateBanner(result.result);
+		updateStore(result.result);
+		updateHotGoods(result.result.hot);
+		updateNewGoods(result.result.new);
+		updateCateGoods(result.result);
+		mui('body').on('tap', 'a.webAction', function(e) {
+			var url = this.href;
+			var timestamp = Date.parse(new Date())/1000;
+			urlArr  = url.split('?ver=');
+			if (url && url.indexOf('#')<0) {
+				url = urlArr[0]+"?ver="+timestamp;
+				mui.openWindow({id:url,url:url});
+			}
+		});
+		mui('.ink-nav').on('tap','a.ajaxAction',function(){selectSort(this)});
+		mui('.ink-lg-goods').on('tap','a.ajaxAction',function(){selectSort(this)});
+		mui('.ink-scroll').scroll({
+			bounce: true,
+			indicators: false,
+			deceleration:0.0009,
+		});
+	});
+	function updateBanner(obj){
+		var param ={
+			'last'   : obj.banner.length-1,
+			'banner' : obj.banner,
+		};
+		BannerTpl = template('sliderTpl',param);
+		document.querySelector('#slider').innerHTML = BannerTpl;
+		var slider = mui("#slider");
+		slider.slider({interval: 5000});
+	}
+	function updateStore(obj){
+		var sortTpl = template('sortTpl',obj);
+		document.querySelector('#selectStoreTpl').innerHTML  = sortTpl;
+	}
+	function updateHotGoods(obj){
+		mui.each(obj.list,function(i,hotObj){
+			var price    = parseFloat(hotObj.price)+parseFloat(hotObj.cate.price);
+			hotObj.price = price.toFixed(2);
+		});
+		var hotTpl = template('hotTpl',obj);
+		document.querySelector('#hotGoods').innerHTML  = hotTpl;
+	}
+	function updateNewGoods(obj){
+		mui.each(obj.list,function(i,newObj){
+			var price    = parseFloat(newObj.price)+parseFloat(newObj.cate.price);
+			newObj.price = price.toFixed(2);
+		});
+		var newTpl = template('newTpl',obj);
+		document.querySelector('#newGoods').innerHTML  = newTpl;
+	}
+	function updateCateGoods(obj){
+		var navTpl   = template('navTpl',obj);
+		var cateHTpl = template('cateHTpl',obj);
+		document.querySelector('#nav').innerHTML=navTpl;
+		mui.each(obj.cate,function(i,cateObj){
+			console.log(cateObj);
+			var cateNode       = document.createElement('div');
+			cateTpl            = template('cateTpl',cateObj);
+			cateNode.className = "mui-table-view ink-view ink-lg-goods";
+			cateNode.id        = "cate_"+cateObj.id;
+			cateNode.innerHTML = cateTpl;
+			mui.each(cateObj.list,function(i,cateList){
+				cateList.price      = parseFloat(cateList.price)+parseFloat(cateList.cate.price);
+			});
+			cateGTpl = template('cateGTpl',cateObj);
+			cateNode.querySelector('#CateGoods').innerHTML   = cateGTpl;
+			document.querySelector('#homeBody').appendChild(cateNode);
+			mui('.cate-scroll-'+cateObj.id).scroll({scrollX:true,scrollY:false});
+			var cateTab        = document.createElement('div');
+			cateTab.id         = "tabbar-with-cate"+cateObj.id;
+			cateTab.className  ="mui-control-content";
+			document.querySelector('.ink-content').appendChild(cateTab);			
+			cateTab.innerHTML = cateHTpl;
+			mui(cateTab.querySelector('.ink-nav')).scroll({scrollX:true,scrollY:false});
+		});
+	}
+	function selectSort(obj){
+		id = obj.id;
+		no  = parseInt(id.replace('nav-',''));
+		if (id != 'nav-info') {
+			sW  = document.documentElement.clientWidth  || document.body.clientWidth;
+			max = (CateMax+1)* 72-parseInt(sW);
+			currentTab = document.querySelector('#tabbar-with-cate'+id.replace('nav-',''));
+			if (max > 72*no ) mui(currentTab.querySelector('#ink-nav')).scroll().scrollTo(-72*no,0);
+			else mui(currentTab.querySelector('#ink-nav')).scroll().scrollTo(-1*max,0);
+		}
+		else {
+			currentTab = document.querySelector('#tabbar-with-'+id.replace('nav-',''));
+			mui(currentTab.querySelector('#ink-nav')).scroll().scrollTo(0,0);
+		}
+		currentNav = currentTab.querySelector('#'+id);
+		allNav     = currentTab.querySelector('#nav').querySelectorAll('a');
+		mui.each(allNav,function(i,navObj){navObj.classList.remove('mui-active');});
+		currentNav.classList.add('mui-active');
+		if (currentTab.querySelector('#ink-body').querySelector('.mui-scroll').childNodes.length <= 3){
+			getHomeSort(no);
+		}
+	}
+	function getHomeSort(id){
+		sortUrl = 'http://www.inklego.com/api/v1/product/catelist';
+		mui.get(sortUrl,{sort:id},function(result){
+			cateBTpl = template('cateBTpl',result.result);
+			document.querySelector('#tabbar-with-cate'+id).querySelector('#ink-body').querySelector('.mui-scroll').innerHTML = cateBTpl;
+		});
+	}
+		var loginUrl    = "http://www.inklego.com/api/v1/user/login";
+	var regUrl      = "http://www.inklego.com/api/v1/user/register";
+	function login(){
+		var account  = document.querySelector('#account').value;
+		var password = document.querySelector('#password').value;
+		var code     = document.querySelector('#code').value;
+		if (account.length <= 0) {mui.toast('账户名必须输入'); return false;}
+		if (password.length <= 0) {mui.toast('密码必须输入'); return false;}
+		mui.post(loginUrl,{username:account,password:password,code:code},function(result){
+			if (result.result) window.location.reload();
+			else if(result.error==401) {showCode();}
+			else if(document.querySelector('#showCode').style.display=='block') {mui.toast(result.errorMessage);showCode();}
+			else {mui.toast(result.errorMessage);}
+		});
+	}
+	function register(){
+		var email  = document.querySelector('#reg_email').value;
+		var nick   = document.querySelector('#reg_nick').value;
+		var pswd   = document.querySelector('#reg_pswd').value;
+		if (email.length <= 0) {mui.toast('邮箱地址必须输入'); return false;}
+		if (nick.length <= 0) {mui.toast('昵称必须输入'); return false;}
+		if (pswd.length <= 0) {mui.toast('密码必须输入'); return false;}
+		if(! isEmail(email) ) {mui.toast('邮箱格式错误'); return false;}
+		if (pswd.length <= 5 || pswd.length >=13) {mui.toast('密码必须6~12位'); return false;}
+		mui.post(regUrl,{username:email,nickname:nick,password:pswd},function(result){
+			if(result.result){
+				document.querySelector('#account').value  = email;
+				document.querySelector('#password').value = pswd;
+				mui.toast('欢迎您，'+nick);
+				setTimeout(function(){login();},1500);
+			}
+			else {
+				mui.toast(result.errorMessage);
+			}
+		});
+	}
+	function isEmail(strEmail) {
+		if (strEmail.search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/) != -1) return true;
+		else return false;
+	}	
+	function showCode(){
+		var codeUrl = "http://www.inklego.com/api/v1/common/code";
+		mui.post(codeUrl,{},function(result){
+			img     = document.querySelector('#codeImg');
+			img.src = "data:image/jpg;base64,"+result.result;
+			document.querySelector('#showCode').style.display="block";
+		});
+	}
+	</script>
