@@ -51,6 +51,11 @@ import '../static/css/mui.min.css';
 import '../static/css/iconfont_2.css';
 import '../static/css/inklego_3.css';
 export default {
-    
+     methods:{
+    	backhistory(){
+    		console.log(1)
+    		history.back();
+    	}
+    }
 }
 </script>
