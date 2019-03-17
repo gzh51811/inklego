@@ -16,8 +16,8 @@ module.exports = {
     // 测试服务器:在内存中运行
     devServer:{
         contentBase:'./src',
-        port:10086,
-        open:true, //自动打开浏览器
+        port:1008,
+        open:false, //自动打开浏览器
     },
 
     resolve:{
@@ -101,7 +101,7 @@ module.exports = {
     plugins:[
         // 依据html模板生成一个自动引用你打包后的文件（js或css）的新的html页面
         new HtmlWebpackPlugin({
-            template:'./src/index.template.html'
+            template:'./src/index.html'
         }),
 
         // Vue-loader 15.x之后的版本都需要伴随 VueLoaderPlugin， 否则报错
