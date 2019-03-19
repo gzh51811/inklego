@@ -4,7 +4,7 @@
 					<h1 class="mui-title">客服</h1>
 					<p class="ink-sub-title">SERVICE</p>
 		</header>
-		<div class="content">内容</div>
+		<div>内容</div>
 	</div>
    
 </template>
@@ -15,10 +15,5 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.content{
-	top: 55px;
-			    bottom: 50px;
-			    position: fixed;
-			    overflow-x: hidden;
-}
+
 </style>

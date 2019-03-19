@@ -9,7 +9,7 @@
 						</svg>
 					</a>
 				</nav>
-				<div class="ink-scroll" >				
+				<div :class="this.active" >				
 					<router-view></router-view>
 				</div>
 			</div>		
@@ -28,8 +28,11 @@ import 'element-ui/lib/theme-chalk/index.css';
 import './static/css/mui.min.css';
 import './static/css/iconfont.css';
 import './static/css/inklego.css';
+
 import './static/js/iconfont.js';
 import axios from "axios";
+
+
 
 // ElementUI以插件的形式来扩展Vue的功能
 Vue.use(ElementUI);
@@ -75,6 +78,7 @@ export default {
     },
     methods:{
         goto(nav){
+        	console.log(1)
             this.$router.push({name:nav.name});
             // this.$router.push({path:nav.path})
             for(var i=0;i<this.navs.length;i++){
@@ -93,6 +97,13 @@ export default {
             }
         }
     },
+    watch:{
+        $route(to,from){
+            console.log("检测路由变化",to.name);
+            console.log(from.name);
+        }
+    }
+
 
 }
 </script>
@@ -107,11 +118,12 @@ export default {
 			}
 			
 			
-			.ink-scroll {			
-			    top: 0px;
+			.ink-scroll {
+			    top: 55px;
 			    bottom: 50px;
 			    position: fixed;
 			    overflow-x: hidden;
+                
 			}
 			
 </style>

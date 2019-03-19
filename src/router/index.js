@@ -12,23 +12,25 @@ import SERVICE from 'page/service'
 import DESIGNER from 'page/designer'
 import NotFound from 'page/NotFound'
 import PERSONAL from 'page/personal'
-import LOGIN from 'page/login'
-
+//列表页路由
+import LIST from  'page/list'
+//商品详情页
+import GOODSXQ from  'page/goodsXQ'
 Vue.use(VueRouter);
 
 let router = new VueRouter({
-//     mode:'history',
+    // mode:'history',
     routes:[
         // 首页:当浏览器地址为path路径是时，自动渲染component对应组件
         {
-            path:'/',   //重定向：当浏览器url地址为/,自动跳转到/store
+            path:'/',   //重定向：当浏览器url地址为/,自动跳转到/home
             redirect:'/store'
         },
         {
             name:'STORE',
             path:'/store',
             component:STORE
-        },
+        }	,
         {
             name:'FUND',
             path:'/fund',
@@ -43,7 +45,8 @@ let router = new VueRouter({
         {
             name:'DESIGNER',
             path:'/designer',
-            component:DESIGNER  
+            component:DESIGNER
+           
         },
         {
             name:'PERSONAL',
@@ -51,9 +54,14 @@ let router = new VueRouter({
             component:PERSONAL
         },
         {
-            name:'LOGIN',
-            path:'/login',
-            component:LOGIN
+            name:'LIST',
+            path:'/list',
+            component:LIST
+        },
+        {
+            name:'GOODSXQ',
+            path:'/goodsXQ',
+            component:GOODSXQ
         },
         // 404
         {
@@ -62,27 +70,6 @@ let router = new VueRouter({
         }
     ]
 });
-//router.beforeEach((to,from,next)=>{
-//  console.log('beforeEach',to,from,next);
-//
-//  if(to.meta.requiresAuth){
-//      // 需要登录的模块，判断是否已登录
-//      let username = localStorage.getItem('username');
-//      if(username){
-//          next();
-//      }else{
-//          console.log('from:',to.fullPath)
-//          // 重定向到登录页面
-//          next({
-//              name:'Login',
-//              params:{from:to.fullPath}
-//          })
-//      }
-//  }else{
-//      next();
-//  }
-//
-//  
-//});
+
 
 export default router;
