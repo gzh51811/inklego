@@ -1,14 +1,17 @@
 <template>
 	<div>
-		<div  class='content_header_t'>
-					<a <!--@click="back"--> class="ink-icon iconfont icon-left mui-pull-left mui-action-back"></a>
+		
+		<header class="mui-bar mui-bar-nav ink-bar-header">
+				<h1 class="mui-title">预售详情</h1>				
+			</header>
+			<div  class='content_header_t'>
+					<a  class="ink-icon iconfont icon-left mui-pull-left mui-action-back"></a>
 					
 					<a class="mui-btn mui-btn-outlined" id="downloadapp">下载APP</a>
 				</div>
-		<header class="mui-bar mui-bar-nav ink-bar-header">
-			<h1 class="mui-title">预售详情</h1>				
-		</header>
-		<div class="content">内容</div>
+		<div class="content">
+			内容
+		</div>
 	</div>
     
 </template>
@@ -40,4 +43,6 @@ export default {
 			    position: fixed;
 			    overflow-x: hidden;
 }
+.content_header_t{
+		position: absolute;top:0;}
 </style>

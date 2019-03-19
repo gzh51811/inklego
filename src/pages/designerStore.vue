@@ -44,6 +44,7 @@
 					</li>
 					
 				</ul>
+				
 			</div>
 		</div>
 	</div>
@@ -176,5 +177,6 @@ export default {
 			}
 		}
 	}
+	
 }
 </style>

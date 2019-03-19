@@ -9,7 +9,7 @@
 						</svg>
 					</a>
 				</nav>
-				<div class="ink-scroll" >				
+				<div >				
 					<router-view></router-view>
 				</div>
 			</div>		
@@ -116,11 +116,6 @@ export default {
 				border: none;
 				z-index: 10;
 			}			
-			.ink-scroll {			
-			    top: 0px;
-			    bottom: 50px;
-			    position: fixed;
-			    overflow-x: hidden;
-			}
+		
 			
 </style>
