@@ -14,6 +14,12 @@ router.get('/init',async (ctx,next)=>{
 
     ctx.body = res;
 })
+router.get('/store',async (ctx,next)=>{
+	let {id}=ctx.query;
+	let _id=id*1
+    let res = await db.find('designer',{id:_id});
 
+    ctx.body = res;
+})
 
 module.exports = router;

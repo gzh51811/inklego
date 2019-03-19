@@ -10,6 +10,7 @@ import STORE from 'page/store'
 import FUND from 'page/fund'
 import SERVICE from 'page/service'
 import DESIGNER from 'page/designer'
+import DESIGNERSTORE from 'page/designerStore'
 import NotFound from 'page/NotFound'
 import PERSONAL from 'page/personal'
 import LOGIN from 'page/login'
@@ -54,6 +55,11 @@ let router = new VueRouter({
             name:'LOGIN',
             path:'/login',
             component:LOGIN
+        },
+        {
+            name:'DESIGNERSTORE',
+            path:'/designerstore',
+            component:DESIGNERSTORE  
         },
         // 404
         {

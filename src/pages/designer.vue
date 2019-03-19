@@ -21,19 +21,18 @@
 				</div>
 			<div id="designer">
 				<ul v-for="(list,idx) in this.designerList.data">
-					<li><img :src="list.thumb" style="height:70px" alt="" /></li>
-					<li>{{list.nick}}</li>
+					<li @click='DList(list.id)'><img :src="list.thumb" style="height:70px" alt="" /></li>
+					<li @click='DList(list.id)'>{{list.nick}}</li>
 					<li><span class="tag">{{list.tag}}</span></li>
-					<li><span class="ink-icon iconfont icon-plus"></span>
-						<p><small>38 人关注</small></p>
+					<li @click='guanzhu'><span class="ink-icon iconfont icon-plus"></span>
+						<p><small>{{list.fansCount}}人关注</small></p>
 					</li>
 					<li><img :src="list.product[0].picture" style="height:70px" alt="" /></li>
 					<li><img :src="list.product[1].picture" style="height:70px" alt="" /></li>
 					<li><img :src="list.product[2].picture" style="height:70px" alt="" /></li>
-					<li><div class="text-danger">12</div>
+					<li @click='DList(list.id)'><div class="text-danger">{{list.dtCount}}</div>
 						<p><small>more</small></p>
 					</li>
-					
 				</ul>
 				
 			</div>
@@ -50,13 +49,34 @@ export default {
 	},
   beforeCreate(){
   		this.$axios.get("http://localhost:1822/designer/init", {
-				     }).then(res=>{
-				     	
+				    }).then(res=>{				     	
 			this.designerList=res;
-			console.log(this.designerList.data)
 		 });
 		
 				     
+  },
+  methods:{
+  	guanzhu(){
+  		let _token=localStorage.getItem('token');
+	    if(_token){
+	        this.$axios.post("http://localhost:1822/tokenverify", 
+	        		{token:_token}).then(res=>{
+					     	if(res.data.status==200){
+					    		//粉丝量加1
+					    		
+					    		
+					     	}else{
+					     		this.$router.push({name:'LOGIN'});     		
+					     	}
+					     });
+	    }else{
+	    	this.$router.push({name:'LOGIN'});  
+	    }
+  	},
+  	DList(id){
+  		this.$router.push({name:'DESIGNERSTORE',query:{id}});   
+  		
+  	}
   }
 }
 </script>
