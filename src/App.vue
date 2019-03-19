@@ -108,7 +108,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
 	.ink-nav {
 				
 				height: 40px;
@@ -116,6 +116,8 @@ export default {
 				border: none;
 				z-index: 10;
 			}			
-		
+		::-webkit-scrollbar{
+			display: none;
+		}
 			
 </style>
