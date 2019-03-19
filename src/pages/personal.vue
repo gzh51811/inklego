@@ -116,7 +116,7 @@ export default {
   height: 187.5px;
   background: #777777;
   .Images {
-    height: 100%;
+    width: 100%;
     opacity: 0.35;
   }
 }

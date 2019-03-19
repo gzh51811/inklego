@@ -33,7 +33,7 @@ Vue.use(ElementUI);
 
 // 把axios设置到Vue的原型对象上，方便在任意组件中使用
 Vue.prototype.$axios = axios;
-
+let loa = new Vue();
 export default {
   data() {
     return {
@@ -64,10 +64,12 @@ export default {
           tubiao: "#icon-my"
         }
       ],
+
       activeIndex: 0,
       active: "ink-scroll"
     };
   },
+
   methods: {
     goto(nav) {
       this.$router.push({ name: nav.name });

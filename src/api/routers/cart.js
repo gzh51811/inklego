@@ -2,7 +2,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-03-19 14:10:38
- * @LastEditTime: 2019-03-19 17:37:24
+ * @LastEditTime: 2019-03-20 00:46:33
  * @购物车接口
  */
 
@@ -15,12 +15,16 @@ var ObjectId = require("mongoose").Types.ObjectId;
 var router = new Router();
 
 router.post("/", async (ctx, next) => {
-  let { a } = ctx.request.body;
+  let {
+    a
+  } = ctx.request.body;
   let res = 0;
   let cart = null;
   let goods = [];
-  if ((a = "query")) {
-    let { b } = ctx.request.body;
+  if ((a == "query")) {
+    let {
+      b
+    } = ctx.request.body;
     cart = await db.find("cart", {
       uerName: b
     });
@@ -31,14 +35,35 @@ router.post("/", async (ctx, next) => {
         })
       );
     }
-    console.log(goods);
+    res = {
+      cart,
+      goods
+    };
+    ctx.body = res;
+    return
   }
-
-  res = {
-    cart,
-    goods
-  };
+  //修改状态
+  if (a == 'revamp') {
+    let {
+      id,
+      state
+    } = ctx.request.body;
+    console.log(id, state);
+    res = await db.update("cart", {
+      _id: ObjectId(`${id}`)
+    }, {
+      $set: {
+        state: state
+      }
+    });
+  }
   ctx.body = res;
+});
+router.get("/", async (ctx, next) => {
+  let {
+    a
+  } = ctx.query;
+  // console.log(a);
 });
 
 // 暴露

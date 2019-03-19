@@ -18,23 +18,37 @@
       </nav>
       <div class="ink-scroll" style="position:fixed;top:44px;bottom:0px;">
         <div class="mui-scroll" style="height:475px;">
-          <div class="cart mui-scroll-wrapper mui-slider-indicator mui-segmented-control">
-            <ul id="cartLg" class="of" ref="liw" :style="{width:ulw+'px'}">
-              <li class="car_box" v-for="(key,idx) in cart" :key="idx">
+          <div
+            class="cart mui-scroll-wrapper mui-slider-indicator mui-segmented-control"
+            style="width:100vw;overflow-x:auto"
+          >
+            <ul id="cartLg" class="of" ref="liw" :style="{width:ulw+'px',left:left_+'px'}">
+              <li
+                class="car_box"
+                v-for="(key,idx) in cart"
+                :key="idx"
+                :data-id="key._id"
+                :data-state="key.state"
+              >
                 <a href="javascript:;">
-                  <img src="../static/picture/template_28551_5.png" alt>
+                  <img :src="`../static/picture/${goods[idx][0].gImg}`" alt>
                 </a>
                 <div class="short-nick mui-text-left">
                   <span>{{goods[idx][0].gName}}</span>
                   <p>
-                    <small>RMB 49.90</small>
+                    <small>RMB {{goods[idx][0].gPrice}}</small>
                   </p>
                 </div>
                 <a href="javasrcipt:;" class="param">
-                  <span class="short-nick size">手机壳</span>
+                  <span class="short-nick size">{{goods[idx][0].gClassify}}</span>
                   <span class="short-nick num">X {{key.num}}</span>
                 </a>
-                <a href="javascript:;" class="select iconfont icon-checked-circle active"></a>
+                
+                <a
+                  href="javascript:;"
+                  class="select iconfont icon-checked-circle active"
+                  @click="cut"
+                ></a>
               </li>
               <!-- <li class="car_box">
                 <a href="javascript:;">
@@ -78,11 +92,37 @@ export default {
     return {
       ulw: 300,
       cart: null,
-      goods: null
+      goods: null,
+      left_: 0
     };
   },
-  methods: {},
-
+  methods: {
+    cut(ev) {
+      let state = 0;
+      if (ev.target.classList.contains("hoverac")) {
+        ev.target.classList.remove("hoverac");
+        ev.path[1].dataset.state = "0";
+        state = ev.path[1].dataset.state;
+        // console.log(ev.path[1].dataset.id);
+      } else {
+        ev.target.classList.add("hoverac");
+        ev.path[1].dataset.state = "1";
+        state = ev.path[1].dataset.state;
+      }
+      this.$axios
+        .post("http://localhost:2233/cart", {
+          a: "revamp",
+          id: ev.path[1].dataset.id,
+          state: state
+        })
+        .then(res => {});
+      // console.log(ev.path[2].dataset.state);
+    }
+  },
+  computed: {},
+  beforeCreate() {
+    this.$loading();
+  },
   // mounted() {},
   created() {
     this.$axios
@@ -102,6 +142,8 @@ export default {
           let wu = this.$refs.liw.children[0].offsetWidth + 10;
           this.ulw = wNum * wu;
         });
+        // 取消遮盖
+        this.$loading().close();
       });
   }
   // mounted() {
@@ -220,13 +262,13 @@ small {
 li .active {
   top: -4px;
   right: -6px;
-  color: #ffd71d;
+  color: #ccc;
   position: absolute;
   font-size: 24px;
   text-shadow: 0px 0px 2px #000;
 }
 .hoverac {
-  color: #ccc !important;
+  color: #ffd71d !important;
 }
 .selectGroup {
   display: none;
