@@ -27,14 +27,13 @@
 					<li @click='guanzhu'><span class="ink-icon iconfont icon-plus"></span>
 						<p><small>{{list.fansCount}}人关注</small></p>
 					</li>
-					<li><img :src="list.product[0].picture" style="height:70px" alt="" /></li>
-					<li><img :src="list.product[1].picture" style="height:70px" alt="" /></li>
-					<li><img :src="list.product[2].picture" style="height:70px" alt="" /></li>
+					<li  @click="designerGoods(list.id,0)"><img :src="list.product[0].picture" style="height:70px" alt="" /></li>
+					<li @click="designerGoods(list.id,1)"><img :src="list.product[1].picture" style="height:70px" alt="" /></li>
+					<li @click="designerGoods(list.id,2)"><img :src="list.product[2].picture" style="height:70px" alt="" /></li>
 					<li @click='DList(list.id)'><div class="text-danger">{{list.dtCount}}</div>
 						<p><small>more</small></p>
 					</li>
-				</ul>
-				
+				</ul>			
 			</div>
 		</div>
     </div>
@@ -51,9 +50,7 @@ export default {
   		this.$axios.get("http://localhost:1822/designer/init", {
 				    }).then(res=>{				     	
 			this.designerList=res;
-		 });
-		
-				     
+		 });			     
   },
   methods:{
   	guanzhu(){
@@ -63,7 +60,7 @@ export default {
 	        		{token:_token}).then(res=>{
 					     	if(res.data.status==200){
 					    		//粉丝量加1
-					    		
+					    		console.log("已关注")
 					    		
 					     	}else{
 					     		this.$router.push({name:'LOGIN'});     		
@@ -76,6 +73,9 @@ export default {
   	DList(id){
   		this.$router.push({name:'DESIGNERSTORE',query:{id}});   
   		
+  	},
+  	designerGoods(id,idx){
+  		this.$router.push({name:'DESIGNERGOODS',query:{id,idx}});
   	}
   }
 }

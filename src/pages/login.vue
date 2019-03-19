@@ -115,7 +115,7 @@ export default {
 			return reg.test(str);
 		},
     	backhistory(){
-    		history.back();
+    		this.$router.push({name:'STORE'});     		
     		
     	},
     	login(){

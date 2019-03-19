@@ -1,0 +1,43 @@
+<template>
+	<div>
+		<div  class='content_header_t'>
+					<a <!--@click="back"--> class="ink-icon iconfont icon-left mui-pull-left mui-action-back"></a>
+					
+					<a class="mui-btn mui-btn-outlined" id="downloadapp">下载APP</a>
+				</div>
+		<header class="mui-bar mui-bar-nav ink-bar-header">
+			<h1 class="mui-title">预售详情</h1>				
+		</header>
+		<div class="content">内容</div>
+	</div>
+    
+</template>
+<script>
+
+export default {
+   beforeCreate(){
+	let {id,idx}=this.$route.query
+   	 console.log(id);
+   	 this.$axios.get("http://localhost:1822/designer/store", {
+   	 				params: {
+				          id
+				        }
+				     }).then(res=>{
+//				    let data= res.data[0]	
+//					this.store=data;
+//					this.product=data.product;
+//					this.length=data.product.length;
+					console.log(res)
+		
+		 });
+   }
+}
+</script>
+<style scoped lang="scss">
+.content{
+				top: 55px;
+			    bottom: 0px;
+			    position: fixed;
+			    overflow-x: hidden;
+}
+</style>

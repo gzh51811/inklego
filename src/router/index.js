@@ -14,6 +14,7 @@ import DESIGNERSTORE from 'page/designerStore'
 import NotFound from 'page/NotFound'
 import PERSONAL from 'page/personal'
 import LOGIN from 'page/login'
+import DESIGNERGOODS from 'page/designerGoods'
 
 Vue.use(VueRouter);
 
@@ -60,6 +61,11 @@ let router = new VueRouter({
             name:'DESIGNERSTORE',
             path:'/designerstore',
             component:DESIGNERSTORE  
+        },
+        {
+            name:'DESIGNERGOODS',
+            path:'/designergoods',
+            component:DESIGNERGOODS  
         },
         // 404
         {
