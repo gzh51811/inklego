@@ -2,7 +2,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-02-28 22:54:34
- * @LastEditTime: 2019-03-18 16:27:03
+ * @LastEditTime: 2019-03-19 15:34:36
  * @mongoDB增删改查封装模块
  */
 const mongodb = require("mongodb");
@@ -113,7 +113,7 @@ exports.find_1 = async ({
 
 /**
  * @description: lmg版查询
- * @param {type}
+ * @param {colName,query}
  * @return:
  */
 

@@ -5,13 +5,13 @@ const cors = require('koa2-cors');
 const routers = require('./api/routers');
 
 // 创建koa应用
-const app = new Koa();//app.context
+const app = new Koa(); //app.context
 
 app.context.myname = 'xiaoai';
 var corsOptions = {
-  origin: 'http://localhost:10086',
+  origin: 'http://localhost:2333',
   credentials: true
-//maxAge: '1728000'
+  //maxAge: '1728000'
   //这一项是为了跨域专门设置的
 }
 app.use(cors(corsOptions));
@@ -22,6 +22,6 @@ app.use(routers.allowedMethods());
 app.use(routers.routes());
 
 // 监听端口
-app.listen(1822,()=>{
-    console.log('server is running on http://localhost:1822');
+app.listen(2233, () => {
+  console.log('server is running on http://localhost:2233');
 })

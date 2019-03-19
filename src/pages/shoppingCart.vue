@@ -20,7 +20,23 @@
         <div class="mui-scroll" style="height:475px;">
           <div class="cart mui-scroll-wrapper mui-slider-indicator mui-segmented-control">
             <ul id="cartLg" class="of" ref="liw" :style="{width:ulw+'px'}">
-              <li class="car_box">
+              <li class="car_box" v-for="(key,idx) in cart" :key="idx">
+                <a href="javascript:;">
+                  <img src="../static/picture/template_28551_5.png" alt>
+                </a>
+                <div class="short-nick mui-text-left">
+                  <span>{{goods[idx][0].gName}}</span>
+                  <p>
+                    <small>RMB 49.90</small>
+                  </p>
+                </div>
+                <a href="javasrcipt:;" class="param">
+                  <span class="short-nick size">手机壳</span>
+                  <span class="short-nick num">X {{key.num}}</span>
+                </a>
+                <a href="javascript:;" class="select iconfont icon-checked-circle active"></a>
+              </li>
+              <!-- <li class="car_box">
                 <a href="javascript:;">
                   <img src="../static/picture/template_28551_5.png" alt>
                 </a>
@@ -35,71 +51,7 @@
                   <span class="short-nick num">X 2</span>
                 </a>
                 <a href="javascript:;" class="select iconfont icon-checked-circle active"></a>
-              </li>
-              <li class="car_box">
-                <a href="javascript:;">
-                  <img src="../static/picture/template_28551_5.png" alt>
-                </a>
-                <div class="short-nick mui-text-left">
-                  <span>2019一夜暴富-黄色</span>
-                  <p>
-                    <small>RMB 49.90</small>
-                  </p>
-                </div>
-                <a href="javasrcipt:;" class="param">
-                  <span class="short-nick size">手机壳</span>
-                  <span class="short-nick num">X 2</span>
-                </a>
-                <a href="javascript:;" class="select iconfont icon-checked-circle active"></a>
-              </li>
-              <li class="car_box">
-                <a href="javascript:;">
-                  <img src="../static/picture/template_28551_5.png" alt>
-                </a>
-                <div class="short-nick mui-text-left">
-                  <span>2019一夜暴富-黄色</span>
-                  <p>
-                    <small>RMB 49.90</small>
-                  </p>
-                </div>
-                <a href="javasrcipt:;" class="param">
-                  <span class="short-nick size">手机壳</span>
-                  <span class="short-nick num">X 2</span>
-                </a>
-                <a href="javascript:;" class="select iconfont icon-checked-circle active"></a>
-              </li>
-              <li class="car_box">
-                <a href="javascript:;">
-                  <img src="../static/picture/template_28551_5.png" alt>
-                </a>
-                <div class="short-nick mui-text-left">
-                  <span>2019一夜暴富-黄色</span>
-                  <p>
-                    <small>RMB 49.90</small>
-                  </p>
-                </div>
-                <a href="javasrcipt:;" class="param">
-                  <span class="short-nick size">手机壳</span>
-                  <span class="short-nick num">X 2</span>
-                </a>
-                <a href="javascript:;" class="select iconfont icon-checked-circle active"></a>
-              </li>
-              <li class="car_box">
-                <a href="javascript:;">
-                  <img src="../static/picture/template_28551_5.png" alt>
-                </a>
-                <div class="short-nick mui-text-left">
-                  <span>2019一夜暴富-黄色</span>
-                  <p>
-                    <small>RMB 49.90</small>
-                  </p>
-                </div>
-                <a href="javasrcipt:;" class="param">
-                  <span class="short-nick size">手机壳</span>
-                  <span class="short-nick num">X 2</span>
-                </a>
-                <a href="javascript:;" class="select iconfont icon-checked-circle active"></a>
-              </li>
+              </li>-->
             </ul>
           </div>
         </div>
@@ -124,21 +76,37 @@
 export default {
   data() {
     return {
-      ulw: 300
+      ulw: 300,
+      cart: null,
+      goods: null
     };
   },
   methods: {},
 
-  mounted() {
-    let wNum = this.$refs.liw.children.length;
-    let wu = this.$refs.liw.children[0].offsetWidth + 16;
-
-    this.ulw = wNum * wu;
-
-    // console.log(this.ulw);
-    console.log(this.$refs.liw.children[0].offsetWidth + 16);
-    // console.log(this.$refs.liw.children);
+  // mounted() {},
+  created() {
+    this.$axios
+      .post("http://localhost:2233/cart", {
+        a: "query",
+        b: "1414134582@qq.com"
+      })
+      .then(res => {
+        console.log(res);
+        this.cart = res.data.cart;
+        console.log(this.cart);
+        this.goods = res.data.goods;
+        console.log(this.goods);
+        // 改变ul宽度
+        this.$nextTick(() => {
+          let wNum = this.$refs.liw.children.length;
+          let wu = this.$refs.liw.children[0].offsetWidth + 10;
+          this.ulw = wNum * wu;
+        });
+      });
   }
+  // mounted() {
+
+  // }
 };
 </script>
 <style scoped lang="scss">
@@ -158,7 +126,7 @@ export default {
   width: 9999px;
   height: 472px;
   position: relative;
-  padding: 10px 10px;
+  margin: 10px 10px;
   img {
     height: 298px;
   }
@@ -250,8 +218,8 @@ small {
   }
 }
 li .active {
-  top: -8px;
-  right: -10px;
+  top: -4px;
+  right: -6px;
   color: #ffd71d;
   position: absolute;
   font-size: 24px;
