@@ -26,10 +26,7 @@ export default {
 				          id
 				        }
 				     }).then(res=>{
-//				    let data= res.data[0]	
-//					this.store=data;
-//					this.product=data.product;
-//					this.length=data.product.length;
+
 					console.log(res)
 		
 		 });
