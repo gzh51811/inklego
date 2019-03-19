@@ -12,10 +12,10 @@
         <div class="bottom">
             
             <ul>
-            <li v-for="item in 30" @click="togoodsXQ">
-                <img src="../static/images/6f6939cb8662a77d5f4f34289d564f3f.jpg" />
-                <p>你是猪</p>
-                <span>￥500</span>
+            <li  v-for="(item,idx) in alldata" @click="togoodsXQ(item.id)">
+                <img :src="item.picture" />
+                <p>{{item.title}}</p>
+                <span>￥{{item.price}}.00</span>
             </li>
         </ul>
             
@@ -29,7 +29,9 @@
         data(){
             return{
                 link:["最新",'人气','价格'],
-                nowidx:0
+                nowidx:0,
+                alldata:[],
+                route:null
             }
         },
         methods:{
@@ -37,10 +39,24 @@
                 
                 this.$router.back();
             },
-            togoodsXQ(){
-                console.log('准备发车详情页');
-                this.$router.push({path:'/goodsXQ',query:{id:123}});
+            togoodsXQ(id){
+                console.log(id);
+
+                this.$router.push({path:'/goodsXQ',query:{id:id}});
             }
+        },
+        created(){
+            
+        },
+        mounted(){
+            this.route = this.$route.query.leixing;
+            // console.log("路由",this.route);
+                //根据不同的路由渲染不同的数据
+                this.$axios.get('http://localhost:1822/list/'+this.route).then(res=>{
+                this.alldata = res.data[0].result;
+                
+                });
+            
         },
         components:{
             storeUL
@@ -126,3 +142,4 @@
     display: none;
     }
 </style>
+

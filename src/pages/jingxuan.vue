@@ -2,9 +2,9 @@
     <div class="content">
     <div class="swiperbox">
         <el-carousel indicator-position="none"  height="170px" >
-            <el-carousel-item v-for="(item,idx) in swiperImg" :key="item.src">
+            <el-carousel-item v-for="(item,idx) in bannerdata" :key="item.image">
               
-                  <img :src="item.src"  />
+                  <img :src="item.image"  />
               
             </el-carousel-item>
       </el-carousel>
@@ -14,9 +14,9 @@
           <h4>精选设计商店</h4>
           <p>SELECT STORE</p>
           <ul>
-              <li v-for="item in 3">
-                <img src="../static/images/342719b89256204014b440dffa4c8974.jpg" height="228" width="500" alt="" />
-                <span>你是猪</span>
+              <li v-for="(item,idx) in designerdata">
+                <img :src="item.thumb" height="228" width="500" alt="" />
+                <span>{{item.nick}}</span>
                 <el-button-group>
                     <el-button type="primary" icon="el-icon-plus" size="mini"></el-button>
                 </el-button-group>
@@ -25,43 +25,44 @@
     </div>
     <div class="hot small">
         <img src="../static/images/hot.jpg"  />
-        <storeUL></storeUL>
+        <storeUL :data="hotdata" v-if="hotdata.length!=0"></storeUL>
+        
     </div>
     <div class="new small">
         <img src="../static/images/new.jpg"  />
-        <storeUL></storeUL>
+        <storeUL :data="newdata" v-if="newdata.length!=0"></storeUL>
     </div>
     <div class="fushi big">
         <h4 @click="tiao">服饰<i class="el-icon-caret-right"></i></h4>
-        <storeUL></storeUL>
+        <storeUL :data="clothdata" v-if="clothdata.length!=0"></storeUL>
     </div>
     <div class="dapei big">
         <h4  @click="tiao">搭配<i class="el-icon-caret-right"></i></h4>
-        <storeUL></storeUL>
+        <storeUL :data="dapeidata" v-if="dapeidata.length!=0"></storeUL>
     </div>
     <div class="shuma big">
         <h4 @click="tiao">数码<i class="el-icon-caret-right"></i></h4>
-        <storeUL></storeUL>
+        <storeUL :data="shumadata" v-if="shumadata.length!=0"></storeUL>
     </div>
     <div class="canchu big">
         <h4 @click="tiao">餐厨<i class="el-icon-caret-right"></i></h4>
-        <storeUL></storeUL>
+        <storeUL :data="canchudata" v-if="canchudata.length!=0"></storeUL>
     </div>
     <div class="chuxing big">
         <h4 @click="tiao">出行<i class="el-icon-caret-right"></i></h4>
-        <storeUL></storeUL>
+        <storeUL :data="chuxingdata" v-if="chuxingdata.length!=0"></storeUL>
     </div>
     <div class="wenju big">
         <h4 @click="tiao">文具<i class="el-icon-caret-right"></i></h4>
-        <storeUL></storeUL>
+        <storeUL :data="wenjudata" v-if="wenjudata.length!=0"></storeUL>
     </div>
     <div class="jujia big">
         <h4 @click="tiao">居家<i class="el-icon-caret-right"></i></h4>
-        <storeUL></storeUL>
+        <storeUL :data="jujiadata" v-if="jujiadata.length!=0"></storeUL>
     </div>
     <div class="pinpai big">
         <h4 @click="tiao">品牌<i class="el-icon-caret-right"></i></h4>
-        <storeUL></storeUL>
+        <storeUL :data="pinpaidata" v-if="pinpaidata.length!=0"></storeUL>
     </div>
     </div>
 </template>
@@ -90,8 +91,20 @@
                         src:'../static/images/dca575d46f495eea73c65819123aff9a.png'
                     }
                 ],
-                num:1
-
+                num:1,
+                bannerdata:[],
+                designerdata:[],
+                hotdata:[],
+                alldata:[],
+                newdata:[],
+                clothdata:[],
+                dapeidata:[],
+                shumadata:[],
+                canchudata:[],
+                chuxingdata:[],
+                wenjudata:[],
+                jujiadata:[],
+                pinpaidata:[]
             }
         },
         props:['page','change'],
@@ -99,6 +112,7 @@
         methods:{
 
             tiao(e){
+                console.log(444);
                 switch(e.target.innerText){
                     case '服饰': this.num = 1;break;
                     case '搭配': this.num = 2;break;
@@ -115,9 +129,20 @@
         },
         //获取数据
         created(){
-            axios.get('http://www.inklego.com/api/v1/recommend/all').then(res=>{
-                console.log(res);
-                this.res = res;
+            this.$axios.get(' http://localhost:1822/store').then(res=>{
+                
+                this.bannerdata = res.data[0].result.banner;
+                this.designerdata = res.data[0].result.designer.slice(0,3);
+                this.hotdata = res.data[0].result.hot.list;
+                this.newdata = res.data[0].result.new.list.slice(0,8);
+                this.clothdata = res.data[0].result.cate[0].list;
+                this.dapeidata = res.data[0].result.cate[1].list;
+                this.shumadata = res.data[0].result.cate[2].list;
+                this.canchudata = res.data[0].result.cate[3].list;
+                this.chuxingdata = res.data[0].result.cate[4].list;
+                this.wenjudata = res.data[0].result.cate[5].list;
+                this.jujiadata = res.data[0].result.cate[6].list;
+                this.pinpaidata = res.data[0].result.cate[7].list;    
             })
         },
         components:{

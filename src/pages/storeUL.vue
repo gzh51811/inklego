@@ -1,18 +1,20 @@
 <template>
     <div class="ulbox">
         <ul>
-            <li v-for="item in 9">
-                <img src="../static/images/342719b89256204014b440dffa4c8974.jpg" height="228" width="500"/>
-                <p>你是猪</p>
-                <span>￥500</span>
+            <li v-for="(item,idx) in data">
+                <img :src="item.picture"/>
+                <p>{{item.title}}</p>
+                <span>￥{{item.price}}.00</span>
             </li>
         </ul>
     </div>
 </template>
 <script type="text/javascript">
     export default{
-
+        props:["data"],
+       
     }
+
 </script>
 <style type="text/css" scoped>
     .ulbox{
@@ -29,8 +31,8 @@
     /*要改要改要改*/
      /*要改要改要改*/
       /*要改要改要改*/
-    .small ul{
-        width:1350px;
+    .new ul{
+        width:1200px;
         background:white;
         text-align: center;
 
@@ -77,29 +79,11 @@
         width:220px;
         height:220px;
     }
-    /*list的ul样式*/
-    /*.bottom ul{
+    
+    p{
+        text-overflow:ellipsis;
         width:100%;
-        background:white;
-        text-align: center;
-        
+        white-space:nowrap;
+         overflow:hidden;
     }
-    .bottom ul span{
-        color:red;
-    }
-    .bottom ul li{
-        box-sizing: border-box;
-        width:182px;
-        height:274px;
-        float:left;
-        padding:15px;
-    }
-    .bottom ul li img{
-        width:172px;
-        height:172px;
-    }
-    .bottom ul li:nth-child(odd){
-        margin-right: 10px;
-    }*/
-
 </style>

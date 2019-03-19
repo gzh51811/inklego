@@ -2,16 +2,16 @@
     <div class="kuai">
         <a href="javascript:;" @click="toList">
                 <div class="left">
-                    <h5>嘛嘛嘛在</h5>
-                    <p>嘛嘛嘛<span>111</span>在</p>
+                    <h5>{{data.title}} / {{data.etitle}}</h5>
+                    <p><span>{{data.count}}</span>款设计</p>
                 </div>
                 <div class="right">
                     >
                 </div>
         </a>
         <ul>
-            <li v-for="(item,idx) in 3 ">
-                <img src="../static/images/b5f154a7be5efb76e2154c81a952a2a6.png"  />
+            <li v-for="(item,idx) in data.product ">
+                <img :src="item.picture"  />
             </li>
         </ul>
 
@@ -19,11 +19,26 @@
 </template>
 <script type="text/javascript">
     export default{
-        methods:{
-            toList(){
-                this.$router.push({path:'/list',query:{id:123}});
-               
+        props:['data'],
+
+        data(){
+            return{
+                num:this.data
             }
+        },
+        methods:{
+            toTeeList(){
+                
+            },
+            
+            toList(e){
+
+                //点击a标签，可以获取到data的etitle，然后以这个为路由传过去
+                console.log("data",this.data.etitle);
+                this.$router.push({path:'/list',query:{leixing:this.data.etitle}})
+                
+            }
+
         }
     }
 </script>

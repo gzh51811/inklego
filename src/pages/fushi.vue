@@ -1,17 +1,36 @@
 <template>
     <div>
         <img src="../static/images/6e3fe1a4601c73b5fba2dc5e398a2a2b.jpg" />
-        <fushimokuai></fushimokuai>
-        <fushimokuai></fushimokuai>
-        <fushimokuai></fushimokuai>
+
+        <fushimokuai :data="Tee" v-if="Tee.length!=0"></fushimokuai>
+        <fushimokuai :data="Hoodies" v-if="Hoodies.length!=0"></fushimokuai>
+        <fushimokuai :data="Vest" v-if="Vest.length!=0"></fushimokuai>
     </div>
 </template>
 
 <script type="text/javascript">
     import fushimokuai from './fushimokuai.vue'
+    import axios from 'axios'
     export default{
+        data(){
+            return{
+                Tee:[],
+                Hoodies:[],
+                Vest:[]
+            }
+        },
         components:{
             fushimokuai
+        },
+        created(){
+            this.$axios.get('http://localhost:1822/store/fushi').then(res=>{
+                
+                this.Hoodies = res.data[0].result.cateList[0];
+                this.Tee = res.data[0].result.cateList[1];
+                this.Vest = res.data[0].result.cateList[2];
+                
+
+            })
         }
     }
 </script>

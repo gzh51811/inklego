@@ -15,6 +15,9 @@ const goodsAddRouter = require('./goods_add');
 const tokenRouter = require('./tokenverify');
 const goodsListRouter = require('./goods_list');
 const orderListRouter = require('./order_list');
+// lmg添加
+const storeRouter = require('./store.js');
+const ListRouter = require('./list');
 //router.use(koaBody({
 //  // 支持formdata
 //  multipart:true,
@@ -45,5 +48,8 @@ router.use('/tokenverify',tokenRouter.routes());
 //router.use('/goods_list',goodsListRouter.routes());
 //router.use('/order_list',orderListRouter.routes());
 
+// lmg添加
+router.use('/store',storeRouter.routes());
+router.use('/list',ListRouter.routes());
 
 module.exports = router;

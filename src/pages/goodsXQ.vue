@@ -43,7 +43,11 @@
             back(){
                 this.$router.back();
             }
+        },
+        mounted(){
+            console.log(this.$route) ;
         }
+        
     }
 </script>
 <style type="text/css" scoped>
