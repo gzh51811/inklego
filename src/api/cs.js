@@ -2,7 +2,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-02-28 23:11:22
- * @LastEditTime: 2019-03-06 17:42:49
+ * @LastEditTime: 2019-03-18 16:45:08
  * @MongoDB操作封装测试
  */
 const db = require("./db");
@@ -33,18 +33,14 @@ const db = require("./db");
 // }
 
 // 用户
-for (let index = 0; index < 50; index++) {
+for (let index = 0; index < 10; index++) {
   async function add() {
-    let res = await db.insert("users", {
-      _id: index,
-      userName: `买家${index + 1}`,
-      gender: "男",
-      Mobile: "13189452320",
-      E_mail: "1414134582@qq.com",
-      password: "123123",
-      permission: "普通用户",
-      site: "广州市天河区",
-      regDate: Date.now() + index
+    let res = await db.insert("goods", {
+      gName: `商品${index + 1}`,
+      gPrice: 10 * (index + 1) * (index + 1),
+      gDesigner: `大帅比`,
+      gImg: "template_28551_5.png",
+      gClassify: "手机壳"
     });
     console.log(res.result);
   }

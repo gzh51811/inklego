@@ -3,7 +3,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-03-16 15:35:38
- * @LastEditTime: 2019-03-18 11:36:10
+ * @LastEditTime: 2019-03-18 20:10:23
  */
  ```
 ##  玩墨网
@@ -82,10 +82,12 @@
   * 头像    img
   * 关注    attention
   * 粉丝    fans
+  * 昵称    nickname
 
 * 购物车
   * 用户名    userName
   * 商品表_id u_id
+  * 数量      num
   * 添加时间  date
 
 

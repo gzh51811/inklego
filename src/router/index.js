@@ -13,52 +13,58 @@ import DESIGNER from 'page/designer'
 import NotFound from 'page/NotFound'
 import PERSONAL from 'page/personal'
 import LOGIN from 'page/login'
+import SHOPPINGCART from 'page/shoppingCart'
 
 Vue.use(VueRouter);
 
 let router = new VueRouter({
-//     mode:'history',
-    routes:[
+    //     mode:'history',
+    routes: [
         // 首页:当浏览器地址为path路径是时，自动渲染component对应组件
         {
-            path:'/',   //重定向：当浏览器url地址为/,自动跳转到/store
-            redirect:'/store'
+            path: '/', //重定向：当浏览器url地址为/,自动跳转到/store
+            redirect: '/store'
         },
         {
-            name:'STORE',
-            path:'/store',
-            component:STORE
+            name: 'STORE',
+            path: '/store',
+            component: STORE
         },
         {
-            name:'FUND',
-            path:'/fund',
-            component:FUND
+            name: 'FUND',
+            path: '/fund',
+            component: FUND
         },
         {
-            name:'SERVICE',
-            path:'/service',
-            component:SERVICE
-           
+            name: 'SERVICE',
+            path: '/service',
+            component: SERVICE
+
         },
         {
-            name:'DESIGNER',
-            path:'/designer',
-            component:DESIGNER  
+            name: 'DESIGNER',
+            path: '/designer',
+            component: DESIGNER
         },
         {
-            name:'PERSONAL',
-            path:'/personal',
-            component:PERSONAL
+            name: 'PERSONAL',
+            path: '/personal',
+            component: PERSONAL
         },
         {
-            name:'LOGIN',
-            path:'/login',
-            component:LOGIN
+            name: 'LOGIN',
+            path: '/login',
+            component: LOGIN
+        },
+        {
+            name: 'SHOPPINGCART',
+            path: '/shoppingcart',
+            component: SHOPPINGCART
         },
         // 404
         {
-            path:'*',
-            component:NotFound
+            path: '*',
+            component: NotFound
         }
     ]
 });
@@ -82,7 +88,7 @@ let router = new VueRouter({
 //      next();
 //  }
 //
-//  
+//
 //});
 
 export default router;
