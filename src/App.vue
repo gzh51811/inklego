@@ -1,8 +1,8 @@
 <template>
 <div class="ink-content">
-			<div id="tabbar-with-info" class="mui-control-content mui-active">
+			<div id="tabbar-with-info" class="mui-control-content mui-active" >
 				
-				<nav class="mui-bar mui-bar-tab ink-bar-tab">
+				<nav class="mui-bar mui-bar-tab ink-bar-tab" v-show="luyou">
 					<a class="mui-tab-item" href="javascript:;" v-for='(nav,idx) in navs' >
 						<svg class="icon" aria-hidden="true" @click='goto(nav)'>
 							<use :href="nav.tubiao" ></use>
@@ -30,7 +30,8 @@ import './static/css/iconfont.css';
 import './static/css/inklego.css';
 import './static/js/iconfont.js';
 import axios from "axios";
-
+import Mint from 'mint-ui';
+Vue.use(Mint);
 // ElementUI以插件的形式来扩展Vue的功能
 Vue.use(ElementUI);
 
@@ -76,23 +77,33 @@ export default {
     methods:{
         goto(nav){
             this.$router.push({name:nav.name});
+            console.log(this.$route.name)
             // this.$router.push({path:nav.path})
-            for(var i=0;i<this.navs.length;i++){
+        }
+    },
+    computed:{
+    	luyou(){
+    		for(var i=0;i<this.navs.length;i++){
             		if(this.navs[i].tubiao.slice(-1)==2){
             			this.navs[i].tubiao=this.navs[i].tubiao.slice(0,-1)
             		}     	
            	 }
-            if(nav.tubiao.slice(-1)==2){
-            }else{
-            	nav.tubiao+='2';
-            }
-            if(nav.name=='PERSONAL'){
-            	this.active='ink-scroll2';
-            }else{
-            	this.active='ink-scroll';
-            }
-        }
-    },
+    		let luyouName=this.$route.name
+    		switch(luyouName){
+    			case "STORE":this.navs[0].tubiao+='2';break;
+    			case "FUND":this.navs[1].tubiao+='2';break;
+    			case "DESIGNER":this.navs[2].tubiao+='2';break;
+    			case "SERVICE":this.navs[3].tubiao+='2';break;
+    			case "PERSONAL":this.navs[4].tubiao+='2';break;
+    		} 		
+    		if(luyouName=='FUND'||luyouName=='STORE'||luyouName=='SERVICE'||luyouName=='DESIGNER'||luyouName=='PERSONAL'){
+    			return true;
+    		}else{
+    			return false;
+    		}
+    		 
+    	}
+    }
 
 }
 </script>
@@ -104,9 +115,7 @@ export default {
 				background: #fff;
 				border: none;
 				z-index: 10;
-			}
-			
-			
+			}			
 			.ink-scroll {			
 			    top: 0px;
 			    bottom: 50px;

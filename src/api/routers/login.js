@@ -12,22 +12,14 @@ var router = new Router();
 router.post('/',async (ctx,next)=>{
     // 解构
     
-    let {username,password,mdl} = ctx.request.body;
+    let {name,password} = ctx.request.body;
 //  password=md5(password);
-    let res = await db.find('user',{username,password});
+    let res = await db.find('user',{name,password});
     res = res[0];
     if(res){
-    	let time='';
-    	if(mdl){
-    		time='7d';
-    	}else{
-    		time='2h';	
-    	}
-        let _token = token.create(username,expiresIn=time);
+        let _token = token.create(name,expiresIn='2h');
         ctx.body = {
-            _id:res._id,
-            username:res.username,
-            admin:res.admin,
+            name:res.name,
 			code:200,
             regtime:res.regtime,
             token:_token,
