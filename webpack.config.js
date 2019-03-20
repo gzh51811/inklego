@@ -1,7 +1,9 @@
 // 这里的代码在nodejs环境下执行
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { VueLoaderPlugin } = require("vue-loader");
+const {
+  VueLoaderPlugin
+} = require("vue-loader");
 
 module.exports = {
   // 入口文件
@@ -16,7 +18,7 @@ module.exports = {
   // 测试服务器:在内存中运行
   devServer: {
     contentBase: "./src",
-    port: 2333,
+    port: 1008,
     open: false //自动打开浏览器
   },
 
