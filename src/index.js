@@ -1,4 +1,3 @@
-
 import Vue from 'vue';
 
 import App from './App.vue';
@@ -8,16 +7,16 @@ import router from './router';
 
 
 new Vue({
-    el:'#app',
+    el: '#app',
     // template:'<App/>'
-    render(create){
+    render(create) {
         return create(App);
     },
     router,
 
     // 将创建好的store注入到Vue根实例里
-//  store,
-    mounted(){
-        console.log('root:',this);
+    //  store,
+    mounted() {
+        console.log('root:', this);
     }
 });
