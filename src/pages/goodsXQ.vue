@@ -14,16 +14,16 @@
         </div>
         <div class="box">
         <div class="center">
-            <img src="../static/images/b5f154a7be5efb76e2154c81a952a2a6.png"  />
-            <p>麻溜溜滑溜溜</p>
+            <img :src="data.picture"  />
+            <p>{{data.title}}</p>
             
-            <i>颜色</i>
-            <span>RMB:888</span>
+            <i>{{data.title}}</i>
+            <span>￥{{data.price}}.00</span>
         </div>
         <div class="shejishi">
             <h4>设计师</h4>
-            <img src="../static/images/b46fb0ca7ea3f29becc7aa822aa339a4.jpg"/>
-            <p>某知名品牌，</p>
+            <img :src="sjsthumb"/>
+            <p>{{sjsnick}}</p>
         </div>
         <div class="xiangqing">
             商品详情
@@ -32,22 +32,59 @@
         <div class="bottom">
             <i class="el-icon-check"></i>
             <i class="el-icon-service"></i>
-            <el-button type="info">立即购买</el-button><el-button type="info">加入购物车</el-button>
+            <el-button type="info">立即购买</el-button><el-button type="info" @click="toCart">加入购物车</el-button>
             
         </div>
     </div>
 </template>
 <script type="text/javascript">
+    import axios from 'axios'
     export default{
+        data(){
+            return {
+                data:[],
+                sjsthumb:[],
+                sjsnick:[]
+            }
+        },
         methods:{
             back(){
                 this.$router.back();
+            },
+            toCart(){
+               
+                console.log("购物车",this.data.id,Date.now());
+
+                this.$axios.get('http://localhost:1822/goodCart/',{params:{
+                    userName:'name',
+                    u_id:this.data.id,
+                    num:1,
+                    date:Date.now(),
+                    state:0
+                }}).then(res=>{
+                    console.log(res);
+                
+                });
+
+
             }
         },
-        mounted(){
-            console.log(this.$route) ;
+        created(){
+            console.log("详情页",this.$route.name);
+            this.$axios.get('http://localhost:1822/GOODSXQ/',{
+                params:{
+                    leixing:this.$route.query.leixing,
+                    id:this.$route.query.id
+
+                }
+            }).then(res=>{
+                    console.log("返回来的东西",res.data[0]);
+                    this.data = res.data[0];
+                    this.sjsthumb =res.data[0].designer.thumb;
+                    this.sjsnick =res.data[0].designer.nick
+                });
         }
-        
+    
     }
 </script>
 <style type="text/css" scoped>
@@ -121,6 +158,14 @@
         line-height: 40px;
         height:40px;
     }
+    .center p,.center i{
+        text-overflow:ellipsis;
+        width:100%;
+        white-space:nowrap; 
+        overflow:hidden;
+        padding:0 40px;
+        box-sizing: border-box;
+    }
     .shejishi{
         height:196px;
         text-align: center;
@@ -148,7 +193,7 @@
     .bottom{
         position:fixed;
         height:50px;
-        bottom:0px;
+        bottom:50px;
         background:white;
         width:100%;
         

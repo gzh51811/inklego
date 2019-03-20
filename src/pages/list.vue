@@ -31,7 +31,8 @@
                 link:["最新",'人气','价格'],
                 nowidx:0,
                 alldata:[],
-                route:null
+                route:null,
+                route1:null
             }
         },
         methods:{
@@ -40,13 +41,15 @@
                 this.$router.back();
             },
             togoodsXQ(id){
-                console.log(id);
+                console.log("列表页",id);
 
-                this.$router.push({path:'/goodsXQ',query:{id:id}});
+                this.$router.push({path:'/goodsXQ/',query:{leixing:this.route1,id:id}});
             }
         },
         created(){
-            
+            let rrr = this.$route.query.leixing;
+            this.route1 = this.$route.query.leixing;
+            console.log("列表页create",rrr);
         },
         mounted(){
             this.route = this.$route.query.leixing;

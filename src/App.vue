@@ -97,12 +97,12 @@ export default {
             }
         }
     },
-    // watch:{
-    //     $route(to,from){
-    //         console.log("检测路由变化",to.name);
-    //         console.log(from.name);
-    //     }
-    // }
+    watch:{
+        $route(to,from){
+            console.log("检测路由变化",to.name);
+            console.log(from.name);
+        }
+    }
 
 
 }

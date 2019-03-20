@@ -24,10 +24,10 @@ router.get('/Vest',async (ctx,next)=>{
 
 });
 
-// router.get('/fushi',async (ctx,next)=>{
-//     let allres = await db.find('fushi',{}); 
-//     ctx.body = allres;
-
-// })
+router.get('/biubiu',async (ctx,next)=>{
+    
+    console.log(ctx.query);
+    ctx.body = 111;
+})
 
 module.exports = router;

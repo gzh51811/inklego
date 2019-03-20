@@ -10,7 +10,7 @@
                 </div>
         </a>
         <ul>
-            <li v-for="(item,idx) in data.product ">
+            <li v-for="(item,idx) in data.product" @click="toXQ(idx)">
                 <img :src="item.picture"  />
             </li>
         </ul>
@@ -27,8 +27,10 @@
             }
         },
         methods:{
-            toTeeList(){
-                
+            toXQ(idx){
+                console.log(this.data.product[idx].id);
+                console.log(idx);
+                this.$router.push({path:'/goodsXQ/',query:{id:this.data.product[idx].id}});
             },
             
             toList(e){

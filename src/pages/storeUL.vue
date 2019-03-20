@@ -1,7 +1,7 @@
 <template>
     <div class="ulbox">
         <ul>
-            <li v-for="(item,idx) in data">
+            <li v-for="(item,idx) in data" @click="dianji(idx)">
                 <img :src="item.picture"/>
                 <p>{{item.title}}</p>
                 <span>￥{{item.price}}.00</span>
@@ -12,6 +12,33 @@
 <script type="text/javascript">
     export default{
         props:["data"],
+        data(){
+            return{
+                num:this.data,
+                goodid:null
+            }
+        },
+        methods:{
+            dianji(idx){  
+                
+                this.goodid = this.data[idx].id;
+                
+                this.$router.push({path:'/goodsXQ/',query:{id:this.goodid}});
+
+            }
+        },
+        mounted(){
+           
+
+            // this.route = this.$route.query.leixing;
+            // console.log("路由",this.route);
+                //根据不同的路由渲染不同的数据
+                // this.$axios.get('http://localhost:1822/list/'+this.route).then(res=>{
+                // this.alldata = res.data[0].result;
+                
+                // });
+            
+        },
        
     }
 

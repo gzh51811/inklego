@@ -24,12 +24,12 @@
           </ul>
     </div>
     <div class="hot small">
-        <img src="../static/images/hot.jpg"  />
+        <img :src="hotImg"  />
         <storeUL :data="hotdata" v-if="hotdata.length!=0"></storeUL>
         
     </div>
     <div class="new small">
-        <img src="../static/images/new.jpg"  />
+        <img :src="newImg"  />
         <storeUL :data="newdata" v-if="newdata.length!=0"></storeUL>
     </div>
     <div class="fushi big">
@@ -104,7 +104,9 @@
                 chuxingdata:[],
                 wenjudata:[],
                 jujiadata:[],
-                pinpaidata:[]
+                pinpaidata:[],
+                hotImg:[],
+                newImg:[]
             }
         },
         props:['page','change'],
@@ -112,7 +114,7 @@
         methods:{
 
             tiao(e){
-                console.log(444);
+                
                 switch(e.target.innerText){
                     case '服饰': this.num = 1;break;
                     case '搭配': this.num = 2;break;
@@ -134,6 +136,8 @@
                 this.bannerdata = res.data[0].result.banner;
                 this.designerdata = res.data[0].result.designer.slice(0,3);
                 this.hotdata = res.data[0].result.hot.list;
+                this.hotImg = res.data[0].result.hot.image;
+                this.newImg = res.data[0].result.new.image;
                 this.newdata = res.data[0].result.new.list.slice(0,8);
                 this.clothdata = res.data[0].result.cate[0].list;
                 this.dapeidata = res.data[0].result.cate[1].list;
