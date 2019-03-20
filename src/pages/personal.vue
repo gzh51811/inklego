@@ -13,7 +13,7 @@
             <div class="short-nick"></div>
           </a>
           
-          <a class="mui-btn mui-tab-item" href="#tabbar-with-login">登录/注册</a>
+          <a class="mui-btn mui-tab-item" href="javascript:;">登录/注册</a>
         </div>
         <ul class="info">
           <li class="mui-pull-left">
@@ -117,6 +117,7 @@ export default {
   background: #777777;
   .Images {
     width: 100%;
+    height: 100%;
     opacity: 0.35;
   }
 }

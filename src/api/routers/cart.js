@@ -2,7 +2,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-03-19 14:10:38
- * @LastEditTime: 2019-03-20 00:46:33
+ * @LastEditTime: 2019-03-20 11:52:43
  * @购物车接口
  */
 
@@ -21,7 +21,7 @@ router.post("/", async (ctx, next) => {
   let res = 0;
   let cart = null;
   let goods = [];
-  if ((a == "query")) {
+  if (a == "query") {
     let {
       b
     } = ctx.request.body;
@@ -40,31 +40,48 @@ router.post("/", async (ctx, next) => {
       goods
     };
     ctx.body = res;
-    return
+    return;
   }
   //修改状态
-  if (a == 'revamp') {
+  if (a == "revamp") {
     let {
       id,
       state
     } = ctx.request.body;
-    console.log(id, state);
-    res = await db.update("cart", {
-      _id: ObjectId(`${id}`)
-    }, {
-      $set: {
-        state: state
+    // console.log(id, state);
+    res = await db.update(
+      "cart", {
+        _id: ObjectId(`${id}`)
+      }, {
+        $set: {
+          state: state
+        }
       }
+    );
+  }
+  //删除
+
+  if (a == "remover") {
+
+    res = await db.delete("cart", {
+      state: "1"
     });
   }
   ctx.body = res;
 });
-router.get("/", async (ctx, next) => {
-  let {
-    a
-  } = ctx.query;
-  // console.log(a);
-});
+// router.get("/", async (ctx, next) => {
+//   let {
+//     a
+//   } = ctx.query;
+//   console.log(a);
+//   let res = 0;
+//   if (a == "remover") {
+//     res = await db.delete("cart", {
+//       state: "1"
+//     });
+//   }
+//   ctx.body = res;
+// });
 
 // 暴露
 module.exports = router;

@@ -9,7 +9,7 @@
         </a>
       </nav>
       <div class="ink-scroll">
-        <router-view></router-view>
+        <router-view v-if="isRouterAlive"></router-view>
       </div>
     </div>
   </div>
@@ -31,12 +31,23 @@ import axios from "axios";
 // ElementUI以插件的形式来扩展Vue的功能
 Vue.use(ElementUI);
 
+
+// var axios = axios.create({
+//   baseURL: 'http://localhost:2233',
+// });
 // 把axios设置到Vue的原型对象上，方便在任意组件中使用
+// Vue.prototype.$instance = axios;
 Vue.prototype.$axios = axios;
 let loa = new Vue();
 export default {
+  provide() {
+    return {
+      reload: this.reload
+    };
+  },
   data() {
     return {
+      isRouterAlive: true,
       navs: [
         {
           text: "商店",
@@ -71,6 +82,12 @@ export default {
   },
 
   methods: {
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(function () {
+        this.isRouterAlive = true;
+      });
+    },
     goto(nav) {
       this.$router.push({ name: nav.name });
       // this.$router.push({path:nav.path})

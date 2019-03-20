@@ -2,19 +2,32 @@
   <div>
     <div id="tabbar-with-list" class="mui-control-content mui-active">
       <header class="mui-bar mui-bar-nav ink-bar">
-        <a class="mui-action-back ink-icon iconfont icon-left mui-pull-left"></a>
+        <a class="mui-action-back ink-icon iconfont icon-left mui-pull-left" @click="esc"></a>
         <h1 class="mui-title">购物车</h1>
-        <a
+        <el-button
+          class="mui-tab-item ink-icon iconfont icon-trash mui-pull-right"
+          type="text"
+          @click="open7"
+        ></el-button>
+        <!-- <a
           href="#tabbar-with-edit"
           class="mui-tab-item ink-icon iconfont icon-trash mui-pull-right"
-        ></a>
+          type="text"
+          @click="open"
+        ></a>-->
       </header>
       <nav class="mui-bar mui-bar-tab ink-bar-tab">
         <div class="total mui-text-center text-danger mui-pull-left">
           合计: RMB
-          <span id="total">0</span>
+          <span id="total" ref="totali">{{total}}</span>
         </div>
-        <a href="javascript:;" id="checkout" class="check-out mui-text-center mui-pull-right">结算</a>
+        <a
+          href="javascript:;"
+          id="checkout"
+          class="check-out mui-text-center mui-pull-right"
+          type="text"
+          @click="clear"
+        >结算</a>
       </nav>
       <div class="ink-scroll" style="position:fixed;top:44px;bottom:0px;">
         <div class="mui-scroll" style="height:475px;">
@@ -47,7 +60,8 @@
                 <a
                   href="javascript:;"
                   class="select iconfont icon-checked-circle active"
-                  @click="cut"
+                  :class="key.state=='1'?'hoverac':''"
+                  @click="cut(goods[idx][0].gPrice,key.num,$event)"
                 ></a>
               </li>
               <!-- <li class="car_box">
@@ -88,36 +102,94 @@
 </template>
 <script>
 export default {
+  inject: ["reload"],
   data() {
     return {
       ulw: 300,
       cart: null,
       goods: null,
-      left_: 0
+      left_: 0,
+      total: 0,
+
     };
   },
   methods: {
-    cut(ev) {
+    esc() {
+      history.back();
+    },
+    cut(price, num, ev) {
+      // 价位
+      let totality = parseInt(this.$refs.totali.innerText);
+      let g_tota = price * num;
+      // console.log(totality, g_tota);
+      // 更改状态
       let state = 0;
       if (ev.target.classList.contains("hoverac")) {
         ev.target.classList.remove("hoverac");
         ev.path[1].dataset.state = "0";
         state = ev.path[1].dataset.state;
         // console.log(ev.path[1].dataset.id);
+        // 总价减
+        this.total = parseInt(totality - price * num).toFixed(2);
+
       } else {
         ev.target.classList.add("hoverac");
         ev.path[1].dataset.state = "1";
         state = ev.path[1].dataset.state;
+        // 计算总价
+        this.total = parseInt(totality + price * num).toFixed(2);
       }
-      this.$axios
-        .post("http://localhost:2233/cart", {
-          a: "revamp",
-          id: ev.path[1].dataset.id,
-          state: state
-        })
-        .then(res => {});
-      // console.log(ev.path[2].dataset.state);
+      // console.log(this.$refs);
+      this.$axios.post("http://localhost:2233/cart", {
+        a: "revamp",
+        id: ev.path[1].dataset.id,
+        state: state
+      })
+        .then(res => { });
+      // console.log("tota" + price, num, ev);
+    },
+    // 删除
+    open7() {
+      if (this.total > 0) {
+        this.$confirm('此操作将永久删除商品, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          showClose: false,
+          roundButton: true,
+          center: true
+        }).then(() => {
+          this.$axios
+            .post("http://localhost:2233/cart", {
+              a: "remover"
+            })
+            .then(res => {
+              // 刷新当前页面
+              console.log(res)
+              this.reload();
+            });
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      }
+
+    },
+
+    // 结算
+    clear() {
+      if (this.total > 0) {
+        // alert("暂未开通此功能")
+      }
     }
+
+
   },
   computed: {},
   beforeCreate() {
@@ -125,11 +197,10 @@ export default {
   },
   // mounted() {},
   created() {
-    this.$axios
-      .post("http://localhost:2233/cart", {
-        a: "query",
-        b: "1414134582@qq.com"
-      })
+    this.$axios.post("http://localhost:2233/cart", {
+      a: "query",
+      b: "1414134582@qq.com"
+    })
       .then(res => {
         console.log(res);
         this.cart = res.data.cart;
@@ -137,11 +208,17 @@ export default {
         this.goods = res.data.goods;
         console.log(this.goods);
         // 改变ul宽度
+
         this.$nextTick(() => {
-          let wNum = this.$refs.liw.children.length;
-          let wu = this.$refs.liw.children[0].offsetWidth + 10;
-          this.ulw = wNum * wu;
+          try {
+            let wNum = this.$refs.liw.children.length;
+            let wu = this.$refs.liw.children[0].offsetWidth + 10;
+            this.ulw = wNum * wu;
+          } catch (error) {
+            console.log("没有商品");
+          }
         });
+
         // 取消遮盖
         this.$loading().close();
       });
@@ -316,4 +393,12 @@ li .active {
   font-size: 14px;
   border: none !important;
 }
+.dota {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: -3%;
+  top: -3%;
+}
+@import url("//unpkg.com/element-ui@2.6.0/lib/theme-chalk/index.css");
 </style>
