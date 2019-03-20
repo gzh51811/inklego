@@ -20,7 +20,7 @@
 									</li>
 				</ul>
 				<div class="artiste-btn" >
-						<a @click="guanzhu" href="#tabbar-with-login"  class="mui-btn mui-btn-outlined iconfont icon-plus mui-tab-item">&nbsp;&nbsp;关注&nbsp;&nbsp;</a>
+						<a @click="guanzhu" href="javascript:;"  class="mui-btn mui-btn-outlined iconfont icon-plus mui-tab-item">&nbsp;&nbsp;关注&nbsp;&nbsp;</a>
 				</div>
 				<ul class="biaoti" >
 					<div class="mui-col-xs-6 mui-pull-left">
