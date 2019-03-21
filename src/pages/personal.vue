@@ -13,7 +13,7 @@
             <div class="short-nick"></div>
           </a>
 
-          <a class="mui-btn mui-tab-item" href="javascript:;">登录/注册</a>
+          <a class="mui-btn mui-tab-item" href="javascript:;" @click="goto">登录/注册</a>
         </div>
         <ul class="info">
           <li class="mui-pull-left">
@@ -101,6 +101,7 @@ export default {
     return {};
   },
   methods: {
+
     goto() {
       this.$router.push({ name: "LOGIN" });
     },

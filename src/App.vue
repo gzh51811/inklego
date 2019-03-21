@@ -44,6 +44,7 @@ export default {
   },
   data() {
     return {
+      isRouterAlive: true,
       navs: [{
         text: '商店',
         name: 'STORE',

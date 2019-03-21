@@ -53,13 +53,13 @@
                 <small>{{list.fansCount}}人关注</small>
               </p>
             </li>
-            <li @click="designerGoods(list.id,0)">
+            <li @click="designerGoods(list.product[0].id)">
               <img :src="list.product[0].picture" style="height:70px" alt>
             </li>
-            <li @click="designerGoods(list.id,1)">
+            <li @click="designerGoods(list.product[1].id)">
               <img :src="list.product[1].picture" style="height:70px" alt>
             </li>
-            <li @click="designerGoods(list.id,2)">
+            <li @click="designerGoods(list.product[2].id)">
               <img :src="list.product[2].picture" style="height:70px" alt>
             </li>
             <li @click="DList(list.id)">
@@ -152,8 +152,9 @@ export default {
       this.$router.push({ name: 'DESIGNERSTORE', query: { id } });
 
     },
-    designerGoods(id, idx) {
-      this.$router.push({ name: 'DESIGNERGOODS', query: { id, idx } });
+    designerGoods(id) {
+
+      this.$router.push({ path: '/goodsXQ/', query: { id } });
     }
   }
 }

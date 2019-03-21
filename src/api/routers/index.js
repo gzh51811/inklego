@@ -2,7 +2,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-03-01 22:51:52
- * @LastEditTime: 2019-03-21 22:04:29
+ * @LastEditTime: 2019-03-21 23:45:09
  * @路由分配
  */
 const Koa = require("koa");
@@ -49,7 +49,7 @@ router.use("/login", loginRouter.routes());
 router.use("/user_add", userAddRouter.routes());
 router.use("/tokenverify", tokenRouter.routes());
 router.use("/designer", designerList.routes());
-router.use("//cart", cartRouter.routes());
+router.use("/cart", cartRouter.routes());
 // lmg添加
 router.use("/store", storeRouter.routes());
 router.use("/list", ListRouter.routes());

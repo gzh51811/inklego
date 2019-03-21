@@ -44,24 +44,25 @@
                 :data-state="key.state"
               >
                 <a href="javascript:;">
-                  <img :src="`../static/picture/${goods[idx][0].gImg}`" alt>
+                  <img :src="
+                  goods[idx][0].picture" alt>
                 </a>
                 <div class="short-nick mui-text-left">
-                  <span>{{goods[idx][0].gName}}</span>
+                  <span>{{goods[idx][0].title}}</span>
                   <p>
-                    <small>RMB {{goods[idx][0].gPrice}}</small>
+                    <small>RMB {{goods[idx][0].price}}</small>
                   </p>
                 </div>
                 <a href="javasrcipt:;" class="param">
-                  <span class="short-nick size">{{goods[idx][0].gClassify}}</span>
+                  <span class="short-nick size">{{goods[idx][0].cate.title}}</span>
                   <span class="short-nick num">X {{key.num}}</span>
                 </a>
-                
+
                 <a
                   href="javascript:;"
                   class="select iconfont icon-checked-circle active"
                   :class="key.state=='1'?'hoverac':''"
-                  @click="cut(goods[idx][0].gPrice,key.num,$event)"
+                  @click="cut(goods[idx][0].price,key.num,$event)"
                 ></a>
               </li>
               <!-- <li class="car_box">
@@ -124,6 +125,7 @@ export default {
       // console.log(totality, g_tota);
       // 更改状态
       let state = 0;
+
       if (ev.target.classList.contains("hoverac")) {
         ev.target.classList.remove("hoverac");
         ev.path[1].dataset.state = "0";
@@ -139,8 +141,8 @@ export default {
         // 计算总价
         this.total = parseInt(totality + price * num).toFixed(2);
       }
-      // console.log(this.$refs);
-      this.$axios.post("http://localhost:2233/cart", {
+      console.log(state);
+      this.$axios.post("http://localhost:1822/cart", {
         a: "revamp",
         id: ev.path[1].dataset.id,
         state: state
@@ -160,7 +162,7 @@ export default {
           center: true
         }).then(() => {
           this.$axios
-            .post("http://localhost:2233/cart", {
+            .post("http://localhost:1822/cart", {
               a: "remover"
             })
             .then(res => {
@@ -172,6 +174,8 @@ export default {
             type: 'success',
             message: '删除成功!'
           });
+          this.reload();
+          this.$router.go(0)
         }).catch(() => {
           this.$message({
             type: 'info',
@@ -191,22 +195,30 @@ export default {
 
 
   },
-  computed: {},
+  computed: {
+
+  },
   beforeCreate() {
     this.$loading();
   },
   // mounted() {},
   created() {
-    this.$axios.post("http://localhost:2233/cart", {
+    //  初始化状态
+    this.$axios.post("http://localhost:1822/cart", {
+      a: "revamp2",
+
+    })
+      .then(res => { });
+    this.$axios.post("http://localhost:1822/cart", {
       a: "query",
-      b: "1414134582@qq.com"
+      b: "name"
     })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.cart = res.data.cart;
         console.log(this.cart);
         this.goods = res.data.goods;
-        console.log(this.goods);
+        // console.log(this.goods);
         // 改变ul宽度
 
         this.$nextTick(() => {
@@ -222,10 +234,10 @@ export default {
         // 取消遮盖
         this.$loading().close();
       });
-  }
-  // mounted() {
+  },
+  mounted() {
 
-  // }
+  }
 };
 </script>
 <style scoped lang="scss">
