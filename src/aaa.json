@@ -1,0 +1,87 @@
+ {
+        "id": 28996,
+        "title": "惊讶太空人男TEE",
+        "price": 40,
+        "picture": "http://cdn.inklego.com/picture/template/t-shirt/template_8731_1500093983.png",
+        "templeteDesc": "惊讶太空人男TEE",
+        "size": {
+            "title": "尺码",
+            "content": [
+                {
+                    "val": "XS",
+                    "price": "0",
+                    "rank": "0"
+                },
+                {
+                    "val": "S",
+                    "price": "0",
+                    "rank": "1"
+                },
+                {
+                    "val": "M",
+                    "price": "0",
+                    "rank": "2"
+                },
+                {
+                    "val": "L",
+                    "price": "0",
+                    "rank": "3"
+                },
+                {
+                    "val": "XL",
+                    "price": "0",
+                    "rank": "4"
+                },
+                {
+                    "val": "2XL",
+                    "price": "0",
+                    "rank": "5"
+                },
+                {
+                    "val": "3XL",
+                    "price": "0",
+                    "rank": "6"
+                }
+            ]
+        },
+        "color": {
+            "title": "颜色",
+            "content": [
+                {
+                    "val": "白色",
+                    "price": "0",
+                    "rank": "1"
+                },
+                {
+                    "val": "黑色",
+                    "price": "10",
+                    "rank": "2"
+                }
+            ]
+        },
+        "banner": [
+            "http://cdn.inklego.com/picture/template/t-shirt/template_8731_1500093983.png",
+            "http://cdn.inklego.com/picture/template/t-shirt/template_8731_1500094006.png"
+        ],
+        "details": [
+            "http://cdn.inklego.com/picture/cate/20180411/f1439ecbe92d200f7ce81f7906bb9a14.jpg",
+            "http://cdn.inklego.com/picture/cate/20180411/4c6a6a832d5646f2afbfca517465c63c.jpg",
+            "http://cdn.inklego.com/picture/cate/20190320/252ca7616c9029eb0fa9fd27e68172a3.jpg",
+            "http://cdn.inklego.com/picture/cate/20180411/1b6bb8800ae6aec302fce336cb0f1244.jpg",
+            "http://cdn.inklego.com/picture/cate/20180411/fe1060980fe4b80d058bfd88455a6e47.jpg"
+        ],
+        "collection": false,
+        "empty": "0",
+        "cate": {
+            "id": 26,
+            "title": "T恤",
+            "price": "60",
+            "param": 0
+        },
+        "designer": {
+            "id": 69510,
+            "nick": "墨墨精选",
+            "thumb": "http://cdn.inklego.com/picture/thumb/20170814/2fd8d055ba6c4d1e8a359592043e5ea0_small.jpg",
+            "description": ""
+        }
+    }

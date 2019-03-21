@@ -12,7 +12,7 @@
           <a class="sortNick2" href="javascript:;">
             <div class="short-nick"></div>
           </a>
-          
+
           <a class="mui-btn mui-tab-item" href="javascript:;">登录/注册</a>
         </div>
         <ul class="info">

@@ -25,6 +25,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import './static/css/mui.min.css';
 import './static/css/iconfont.css';
 import './static/css/inklego.css';
+
 import './static/js/iconfont.js';
 import axios from "axios";
 import Mint from 'mint-ui';
