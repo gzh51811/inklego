@@ -120,14 +120,11 @@ export default {
   beforeCreate() {
     let _token = localStorage.getItem('token');
     let user = localStorage.getItem('user');
-
-
     // console.log("user" + user);
-
     // token验证方式
     if (_token) {
       // 判断本地是否有token
-      this.$axios.post("http://localhost:1822/tokenverify",
+      this.$ax.post("/tokenverify",
         { token: _token }).then(res => {
           if (res.data.status == 200) {
             // this.$router.push({ name: 'STORE' })
@@ -135,7 +132,6 @@ export default {
             this.name = user;
           } else {
             this.show = 0
-
           }
         });
     }
@@ -237,7 +233,6 @@ ul {
   li {
     width: 75px;
   }
-
   .mui-pull-left {
     float: left;
   }

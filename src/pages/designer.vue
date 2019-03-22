@@ -124,7 +124,7 @@ export default {
     }
   },
   beforeCreate() {
-    this.$axios.get("http://localhost:1822/designer/init", {
+    this.$axios.get(" /designer/init", {
     }).then(res => {
       this.designerList = res;
       console.log("res", res)
@@ -134,7 +134,7 @@ export default {
     guanzhu() {
       let _token = localStorage.getItem('token');
       if (_token) {
-        this.$axios.post("http://localhost:1822/tokenverify",
+        this.$axios.post(" /tokenverify",
           { token: _token }).then(res => {
             if (res.data.status == 200) {
               //粉丝量加1

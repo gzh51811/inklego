@@ -23,7 +23,7 @@ export default {
     fushimokuai
   },
   created() {
-    this.$axios.get('http://localhost:1822/store/fushi').then(res => {
+    this.$axios.get(' /store/fushi').then(res => {
 
       this.Hoodies = res.data[0].result.cateList[0];
       this.Tee = res.data[0].result.cateList[1];

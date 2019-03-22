@@ -32,9 +32,15 @@ import Mint from 'mint-ui';
 Vue.use(Mint);
 // ElementUI以插件的形式来扩展Vue的功能
 Vue.use(ElementUI);
-
+var axios_ = axios.create({
+  baseURL: 'http://148.70.88.193'
+});
+var ax = axios.create({
+  baseURL: 'http://148.70.88.193'
+});
 // 把axios设置到Vue的原型对象上，方便在任意组件中使用
-Vue.prototype.$axios = axios;
+Vue.prototype.$axios = axios_;
+Vue.prototype.$ax = ax;
 
 export default {
   provide() {

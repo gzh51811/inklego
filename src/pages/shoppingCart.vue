@@ -142,7 +142,7 @@ export default {
         this.total = parseInt(totality + price * num).toFixed(2);
       }
       console.log(state);
-      this.$axios.post("http://localhost:1822/cart", {
+      this.$axios.post(" /cart", {
         a: "revamp",
         id: ev.path[1].dataset.id,
         state: state
@@ -162,7 +162,7 @@ export default {
           center: true
         }).then(() => {
           this.$axios
-            .post("http://localhost:1822/cart", {
+            .post(" /cart", {
               a: "remover"
             })
             .then(res => {
@@ -207,12 +207,12 @@ export default {
     let user = localStorage.getItem('user');
     console.log(user);
     //  初始化状态
-    this.$axios.post("http://localhost:1822/cart", {
+    this.$ax.post(" /cart", {
       a: "revamp2",
 
     })
       .then(res => { });
-    this.$axios.post("http://localhost:1822/cart", {
+    this.$ax.post(" /cart", {
       a: "query",
       b: user
     })

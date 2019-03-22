@@ -48,7 +48,7 @@ export default {
 
       console.log("购物车", this.data.id, Date.now());
       let user = localStorage.getItem('user');
-      this.$axios.get('http://localhost:1822/goodCart/', {        params: {
+      this.$axios.get(' /goodCart/', {        params: {
           userName: user,
           u_id: this.data.id,
           num: 1,
@@ -64,7 +64,7 @@ export default {
   },
   created() {
     console.log("详情页", this.$route.name);
-    this.$axios.get('http://localhost:1822/GOODSXQ/', {
+    this.$axios.get(' /GOODSXQ/', {
       params: {
         leixing: this.$route.query.leixing,
         id: this.$route.query.id

@@ -151,7 +151,7 @@ export default {
   },
   //获取数据
   created() {
-    this.$axios.get(' http://localhost:1822/store').then(res => {
+    this.$axios.get('  /store').then(res => {
 
       this.bannerdata = res.data[0].result.banner;
       this.designerdata = res.data[0].result.designer.slice(0, 3);
