@@ -183,6 +183,8 @@ export default {
   },
   beforeCreate() {
     let _token = localStorage.getItem('token');
+    // console.log("_token" + _token);
+
     // token验证方式
     if (_token) {
       // 判断本地是否有token

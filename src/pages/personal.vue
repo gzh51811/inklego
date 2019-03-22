@@ -13,7 +13,8 @@
             <div class="short-nick"></div>
           </a>
 
-          <a class="mui-btn mui-tab-item" href="javascript:;" @click="goto">登录/注册</a>
+          <a class="mui-btn mui-tab-item" href="javascript:;" @click="goto" v-if="show == 0">登录/注册</a>
+          {{name}}
         </div>
         <ul class="info">
           <li class="mui-pull-left">
@@ -88,7 +89,7 @@
         <li class="mui-pull-left sm">
           <a href="javascript:;" class="mui-tab-item">
             <span class="mui-icon ink-icon iconfont icon-setup"></span>
-            <span class="title">设置</span>
+            <span class="title" @click="remover">退出</span>
           </a>
         </li>
       </ul>
@@ -98,15 +99,45 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      show: 0,
+      name: null
+    };
   },
   methods: {
-
+    remover() {
+      localStorage.setItem('user', "");
+      localStorage.setItem('token', "");
+      this.$router.go(0);
+    },
     goto() {
       this.$router.push({ name: "LOGIN" });
     },
     gotoTwo() {
       this.$router.push({ name: "SHOPPINGCART", query: { id: "123" } });
+    }
+  },
+  beforeCreate() {
+    let _token = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
+
+
+    // console.log("user" + user);
+
+    // token验证方式
+    if (_token) {
+      // 判断本地是否有token
+      this.$axios.post("http://localhost:1822/tokenverify",
+        { token: _token }).then(res => {
+          if (res.data.status == 200) {
+            // this.$router.push({ name: 'STORE' })
+            this.show = 1;
+            this.name = user;
+          } else {
+            this.show = 0
+
+          }
+        });
     }
   }
 };

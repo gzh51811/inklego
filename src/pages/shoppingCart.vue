@@ -203,6 +203,9 @@ export default {
   },
   // mounted() {},
   created() {
+    // 获取token
+    let user = localStorage.getItem('user');
+    console.log(user);
     //  初始化状态
     this.$axios.post("http://localhost:1822/cart", {
       a: "revamp2",
@@ -211,7 +214,7 @@ export default {
       .then(res => { });
     this.$axios.post("http://localhost:1822/cart", {
       a: "query",
-      b: "name"
+      b: user
     })
       .then(res => {
         // console.log(res);

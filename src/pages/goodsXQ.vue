@@ -47,9 +47,9 @@ export default {
     toCart() {
 
       console.log("购物车", this.data.id, Date.now());
-
+      let user = localStorage.getItem('user');
       this.$axios.get('http://localhost:1822/goodCart/', {        params: {
-          userName: 'name',
+          userName: user,
           u_id: this.data.id,
           num: 1,
           date: Date.now(),
