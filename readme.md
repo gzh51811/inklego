@@ -3,7 +3,7 @@
  * @writer: 咕鸽仙人
  * @LastEditors: 咕鸽仙人
  * @Date: 2019-03-16 15:35:38
- * @LastEditTime: 2019-03-20 22:51:48
+ * @LastEditTime: 2019-03-22 16:31:03
  */
 ```
 
@@ -22,7 +22,7 @@
   * 项目名称 : 爱墨网
   * 人员结构 : 组长 : `黄理强`    组员 :  `李明钢` `曾晓添`
   * 官方地址 : http://www.inklego.com/mb
-  * 演示地址 :
+  * 演示地址 : 148.70.88.193:1822
   * github地址:https://github.com/gzh51811/inklego
 
 #### 目录树
