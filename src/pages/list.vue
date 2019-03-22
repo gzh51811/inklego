@@ -53,7 +53,7 @@ export default {
     this.route = this.$route.query.leixing;
     // console.log("路由",this.route);
     //根据不同的路由渲染不同的数据
-    this.$axios.get(' /list/' + this.route).then(res => {
+    this.$axios.get('/list/' + this.route).then(res => {
       this.alldata = res.data[0].result;
 
     });

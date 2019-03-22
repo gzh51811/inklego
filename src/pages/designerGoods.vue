@@ -17,7 +17,7 @@ export default {
   beforeCreate() {
     let { id, idx } = this.$route.query
     console.log(id);
-    this.$axios.get(" /designer/store", {
+    this.$axios.get("/designer/store", {
       params: {
         id
       }

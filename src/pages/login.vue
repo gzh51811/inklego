@@ -188,7 +188,7 @@ export default {
     // token验证方式
     if (_token) {
       // 判断本地是否有token
-      this.$axios.post(" /tokenverify",
+      this.$axios.post("/tokenverify",
         { token: _token }).then(res => {
           if (res.data.status == 200) {
             this.$router.push({ name: 'STORE' })
@@ -228,7 +228,7 @@ export default {
       console.log(this.emailReg)
       if (this.emailReg) {
         if (this.emailYZ(this.emailReg)) {
-          this.$axios.get(" /user_add/username", {
+          this.$axios.get("/user_add/username", {
             params: {
               name: this.emailReg
             }
@@ -289,7 +289,7 @@ export default {
     btnReg() {
       console.log(this.emailRegOK && this.nickRegOK && this.pswRegOK)
       if (this.emailRegOK && this.nickRegOK && this.pswRegOK) {
-        this.$axios.post(" /user_add/insert", {
+        this.$axios.post("/user_add/insert", {
           name: this.emailReg,
           nickname: this.nickReg,
           password: this.pswReg
@@ -348,7 +348,7 @@ export default {
     },
     btnLogin() {
       if (this.emailLoginOK && this.pswLoginOK && this.yzmLoginOK) {
-        this.$axios.post(" /login", {
+        this.$axios.post("/login", {
           name: this.emailLogin,
           password: this.pswLogin
         })

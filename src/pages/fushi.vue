@@ -10,7 +10,6 @@
 
 <script type="text/javascript">
 import fushimokuai from './fushimokuai.vue'
-import axios from 'axios'
 export default {
   data() {
     return {
@@ -23,7 +22,7 @@ export default {
     fushimokuai
   },
   created() {
-    this.$axios.get(' /store/fushi').then(res => {
+    this.$axios.get('/store/fushi').then(res => {
 
       this.Hoodies = res.data[0].result.cateList[0];
       this.Tee = res.data[0].result.cateList[1];

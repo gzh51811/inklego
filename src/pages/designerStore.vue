@@ -67,7 +67,7 @@ export default {
   beforeCreate() {
     let { id } = this.$route.query
     console.log(id);
-    this.$axios.get(" /designer/store", {
+    this.$axios.get("/designer/store", {
       params: {
         id
       }
@@ -89,7 +89,7 @@ export default {
     guanzhu() {
       let _token = localStorage.getItem('token');
       if (_token) {
-        this.$axios.post(" /tokenverify",
+        this.$axios.post("/tokenverify",
           { token: _token }).then(res => {
             if (res.data.status == 200) {
               //粉丝量加1

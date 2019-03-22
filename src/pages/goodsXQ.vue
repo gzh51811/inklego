@@ -31,7 +31,6 @@
   </div>
 </template>
 <script type="text/javascript">
-import axios from 'axios'
 export default {
   data() {
     return {
@@ -48,7 +47,7 @@ export default {
 
       console.log("购物车", this.data.id, Date.now());
       let user = localStorage.getItem('user');
-      this.$axios.get(' /goodCart/', {        params: {
+      this.$axios.get('/goodCart/', {        params: {
           userName: user,
           u_id: this.data.id,
           num: 1,
@@ -64,7 +63,7 @@ export default {
   },
   created() {
     console.log("详情页", this.$route.name);
-    this.$axios.get(' /GOODSXQ/', {
+    this.$axios.get('/GOODSXQ/', {
       params: {
         leixing: this.$route.query.leixing,
         id: this.$route.query.id
