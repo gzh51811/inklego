@@ -139,6 +139,7 @@ export default {
             if (res.data.status == 200) {
               //粉丝量加1
               console.log("已关注")
+              
 
             } else {
               this.$router.push({ name: 'LOGIN' });

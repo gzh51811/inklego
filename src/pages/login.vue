@@ -103,6 +103,7 @@
                 placeholder="请输入邮箱"
                 data-input-clear="4"
                 v-model="emailReg"
+                ref='emailR'
               >
               <span class="mui-icon mui-icon-clear mui-hidden"></span>
             </div>
@@ -118,6 +119,7 @@
                 placeholder="请输入昵称"
                 data-input-clear="5"
                 v-model="nickReg"
+                ref='nickR'
               >
               <span class="mui-icon mui-icon-clear mui-hidden"></span>
             </div>
@@ -133,6 +135,7 @@
                 placeholder="请输入密码"
                 data-input-password="6"
                 v-model="pswReg"
+                ref='pswR'
               >
               <span class="mui-icon mui-icon-eye"></span>
             </div>
@@ -141,7 +144,7 @@
       </div>
       <a class="mui-btn mui-btn-ink mui-btn-block" @click="btnReg">注册</a>
     </div>
-    <el-button type="text"></el-button>
+    <div :class="{'mui-toast-container':true,'mui-active':msgOK}"><div class="mui-toast-message">{{msg}}</div></div>
   </div>
 </template>
 <script>
@@ -165,6 +168,8 @@ export default {
       emailLoginOK: false,
       pswLoginOK: false,
       yzmLoginOK: false,
+      msg:'',
+      msgOK:false
     }
   },
   computed: {
@@ -223,6 +228,7 @@ export default {
     login() {
       return this.status = (!this.status)
     },
+
     //验证用户名是否存在
     emailR() {
       console.log(this.emailReg)
@@ -235,56 +241,75 @@ export default {
           }).then(res => {
             if (res.data == 'yes') {
               this.emailRegOK = true;
-              this.open('邮箱格式可以注册');
             } else {
               this.emailRegOK = false;
-              this.open('邮箱格式已存在');
+               this.msg='邮箱格式已存在';
+              this.msgOK=true;
             }
+            var timer=setTimeout(()=>{
+            	 this.msgOK=false; 
+            	 clearTimeout(timer);
+            },1000)
+           
           });
         } else {
 
           this.emailRegOK = false;
-          this.open('邮箱格式有误')
+          this.msg='邮箱格式有误';
+           this.msgOK=true;
         }
       } else {
 
         this.emailRegOK = false;
-        this.open('邮箱格式不能为空');
+        this.msg='邮箱格式不能为空';
+        this.msgOK=true;
       }
-
+				 var timer=setTimeout(()=>{
+            	 this.msgOK=false;
+            	 clearTimeout(timer);
+            },1000)
+           
     },
     //昵称验证
     nickR() {
       if (this.nickReg) {
         if (this.nikenameYZ(this.nickReg)) {
           this.nickRegOK = true;
-          this.open('昵称可以注册');
         } else {
-          this.nickRegOK = false;
-          this.open('请输入中文，不能有其它字符')
-
+          this.nickRegOK = false; 
+          this.msg='请输入中文，不能有其它字符';
+					  this.msgOK=true;
+         
         }
       } else {
         this.nickRegOK = false;
-        this.open('昵称不能为空');
+        this.msg='昵称不能为空';
+				 this.msgOK=true;
       }
+      var timer=setTimeout(()=>{
+            	 this.msgOK=false; 
+            	 clearTimeout(timer);
+            },1000)
     },
     //密码注册
     pswR() {
       if (this.pswReg) {
         if (this.psweasyYZ(this.pswReg)) {
-          this.pswRegOK = true;
-          this.open('符合');
+          this.pswRegOK = true;       
         } else {
-
           this.pswRegOK = false;
-          this.open('请输入6到18的字母、数字或下划线')
+          this.msg='请输入6到18的字母、数字或下划线';
+					this.msgOK=true;
         }
       } else {
-
         this.pswRegOK = false;
-        this.open('密码不能为空');
+        this.msg='密码不能为空';
+				this.msgOK=true;
       }
+       var timer=setTimeout(()=>{
+            	 this.msgOK=false; 
+            	 clearTimeout(timer);
+            },1000)
     },
     btnReg() {
       console.log(this.emailRegOK && this.nickRegOK && this.pswRegOK)
@@ -295,13 +320,33 @@ export default {
           password: this.pswReg
 
         })
-          .then(function (response) {
-            this.open('注册成功');
-
+          .then(res=>{	
+							this.msg='注册成功';
+							this.msgOK=true;
+							 var timer=setTimeout(()=>{
+            	 this.msgOK=false; 
+            	 clearTimeout(timer);
+            },1000)
+							if(res.data.ok==1){
+								this.$axios.post("/login", {
+								          name:this.emailReg,
+								          password: this.pswReg
+								        })
+								          .then(res => {							   
+								              localStorage.setItem('user', res.data.name);
+								              localStorage.setItem('token', res.data.token);
+								              this.$router.push({ name: 'STORE' })							            
+								          })
+							}
           })
       } else {
-        this.open('请重新检查');
+					this.msg='请重新检查各项';
+					this.msgOK=true;
       }
+      var timer=setTimeout(()=>{
+            	 this.msgOK=false; 
+            	 clearTimeout(timer);
+            },1000)
     },
     //登录部分
     //1 验证用户名格式
@@ -310,17 +355,21 @@ export default {
       if (this.emailLogin) {
         if (this.emailYZ(this.emailLogin)) {
           this.emailLoginOK = true;
-          this.open('邮箱格式正确')
         } else {
-
           this.emailLoginOK = false;
-          this.open('邮箱格式有误')
+          this.msg='邮箱格式有误';
+					this.msgOK=true;
         }
       } else {
 
-        this.emailLoginOK = false;
-        this.open('邮箱格式不能为空');
+        	this.emailLoginOK = false;
+         	this.msg='邮箱不能为空';
+					this.msgOK=true;
       }
+      var timer=setTimeout(()=>{
+            	 this.msgOK=false; 
+            	 clearTimeout(timer);
+            },1000)
 
     },
     //密码验证
@@ -329,22 +378,32 @@ export default {
         this.pswLoginOK = true;
       } else {
         this.pswLoginOK = false;
-        this.open('密码不能为空');
+         this.msg='密码不能为空';
+					this.msgOK=true;
       }
+      var timer=setTimeout(()=>{
+            	 this.msgOK=false; 
+            	 clearTimeout(timer);
+            },1000)
     },
     yzmL() {
       if (this.yzmLogin) {
         if (this.yzmLogin.toLowerCase() == this.suijishu.toLowerCase()) {
           this.yzmLoginOK = true;
-          this.open('验证码正确');
         } else {
           this.yzmLoginOK = false;
-          this.open('验证码错误');
+           this.msg='验证码错误';
+						this.msgOK=true;
         }
       } else {
-        this.yzmLoginOK = false;
-        this.open('请输入验证码');
+        	this.yzmLoginOK = false;
+        	this.msg='请输入验证码';
+					this.msgOK=true;
       }
+       var timer=setTimeout(()=>{
+            	 this.msgOK=false; 
+            	 clearTimeout(timer);
+            },1000)
     },
     btnLogin() {
       if (this.emailLoginOK && this.pswLoginOK && this.yzmLoginOK) {
@@ -354,7 +413,13 @@ export default {
         })
           .then(res => {
             if (res.data.code == 100) {
-              this.open('邮箱与密码不匹配');
+              this.open();
+              this.msg='邮箱与密码不匹配';
+							this.msgOK=true;
+							 var timer=setTimeout(()=>{
+            	 this.msgOK=false; 
+            	 clearTimeout(timer);
+            },1000)
             } else if (res.data.code == 200) {
               localStorage.setItem('user', res.data.name);
               localStorage.setItem('token', res.data.token);
@@ -362,8 +427,13 @@ export default {
             }
           })
       } else {
-        this.open('各项都不能为空');
+       		this.msg='各项都不能为空';
+					this.msgOK=true;
       }
+       var timer=setTimeout(()=>{
+            	 this.msgOK=false; 
+            	 clearTimeout(timer);
+            },1000)
     }
   }
 }

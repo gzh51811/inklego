@@ -33,10 +33,12 @@ Vue.use(Mint);
 // ElementUI以插件的形式来扩展Vue的功能
 Vue.use(ElementUI);
 var axios_ = axios.create({
-  baseURL: 'http://148.70.88.193'
+	baseURL: 'http://148.70.88.193'
+//baseURL: 'http://localhost:1822'
 });
 var ax = axios.create({
-  baseURL: 'http://148.70.88.193'
+baseURL: 'http://148.70.88.193' 
+//baseURL: 'http://localhost:1822'
 });
 // 把axios设置到Vue的原型对象上，方便在任意组件中使用
 Vue.prototype.$axios = axios_;
