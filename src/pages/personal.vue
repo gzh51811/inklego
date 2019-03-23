@@ -5,7 +5,7 @@
       <div class="ink-member-info">
         <div class="thumb">
           <a href="javascript:;">
-            <img class="myThumb" :src="'../static/images/default_user_icon.png'">
+            <img class="myThumb" :src="`../img/` + (name != null ? enter : Not)">
           </a>
         </div>
         <div class="nick">
@@ -101,7 +101,9 @@ export default {
   data() {
     return {
       show: 0,
-      name: null
+      name: null,
+      enter: "thumb.png",
+      Not: "default_user_icon.png"
     };
   },
   methods: {
@@ -122,6 +124,7 @@ export default {
     let user = localStorage.getItem('user');
     // console.log("user" + user);
     // token验证方式
+    this.name = user;
     if (_token) {
       // 判断本地是否有token
       this.$ax.post("/tokenverify",
